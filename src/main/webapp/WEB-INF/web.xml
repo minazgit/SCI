@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    
+<context-param>
+<param-name>driver</param-name>
+<param-value>com.mysql.jdbc.Driver</param-value>
+</context-param>
+<context-param>
+<param-name>url</param-name>
+<param-value>jdbc:mysql://localhost:3306/sci_security</param-value>
+</context-param>
+<context-param>
+<param-name>username</param-name>
+<param-value>root</param-value>
+</context-param>
+<context-param>
+<param-name>password</param-name>
+<param-value>java</param-value>
+</context-param>
+<listener>
+<listener-class>Dbconnecti0n.JdbcConnection</listener-class>
+</listener>
+<servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>NewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerItemmMaster</servlet-name>
+        <servlet-class>businesslayer.SerItemmMaster</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerItemOutwards</servlet-name>
+        <servlet-class>businesslayer.SerItemOutwards</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerPersonMaster</servlet-name>
+        <servlet-class>businesslayer.SerPersonMaster</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerSecurityGuard</servlet-name>
+        <servlet-class>businesslayer.SerSecurityGuard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerUniformIssue</servlet-name>
+        <servlet-class>businesslayer.SerUniformIssue</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>demo</servlet-name>
+        <servlet-class>demo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerItemInward</servlet-name>
+        <servlet-class>businesslayer.SerItemInward</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Practice</servlet-name>
+        <servlet-class>Practice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SerUniformReturn</servlet-name>
+        <servlet-class>businesslayer.SerUniformReturn</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerItemOutwards</servlet-name>
+        <url-pattern>/SerItemOutwards</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerItemmMaster</servlet-name>
+        <url-pattern>/SerItemmMaster</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerPersonMaster</servlet-name>
+        <url-pattern>/SerPersonMaster</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerSecurityGuard</servlet-name>
+        <url-pattern>/SerSecurityGuard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerUniformIssue</servlet-name>
+        <url-pattern>/SerUniformIssue</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>demo</servlet-name>
+        <url-pattern>/demo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerItemInward</servlet-name>
+        <url-pattern>/SerItemInward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Practice</servlet-name>
+        <url-pattern>/Practice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerUniformReturn</servlet-name>
+        <url-pattern>/SerUniformReturn</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>/UserPannelDesign/AdminMainPage.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
