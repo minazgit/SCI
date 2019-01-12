@@ -131,9 +131,9 @@
                                                                 while(it.hasNext())
                                                                 {
                                                              ItemMaster im=(ItemMaster)it.next();
-                                                            
+                                                           
                                                                 %>
-                                                                <option value="<%= im.getItemid()%>"><%= im.getItemname()%></option>
+                                                                <option value="<%= im.getItemid()%>"><%= im.getItemname()%>  ( <%=im.getItemCategory()%> )</option>
                                                           <%  }
                                                                 %>
                                                         </select>

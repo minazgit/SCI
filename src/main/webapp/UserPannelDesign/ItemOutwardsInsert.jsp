@@ -34,7 +34,7 @@
                     var   persontype=$("#select option:selected").val();
                      var person=$("#select option:selected").attr('id');
                       date=$("#date").val();
-                    billno=$("#remark").val();
+                    remark=$("#remark").val();
                     index=$("#index").val();
 //                    alert(persontype);
 //                    alert(person);
@@ -42,6 +42,7 @@
 //                    alert(billno);
 //                    alert(index);
                      var ctrlselling="";
+                     var selling="";
                       ctrlheader=$(".d");
                       ctrlitemname=$(".itemname");
                  //    alert(ctrlheader.length);
@@ -72,10 +73,9 @@
          
          
           jsondata=jsondata+"{\"in\":\""+itemname+"\",\"q\":\""+quantity+"\"";
-           if(ctrlselling!=="")
-           {
+        
                jsondata=jsondata+",\"selling\":\""+selling+"\"";
-           }
+           
           jsondata=jsondata+"},";
          
         }
@@ -87,7 +87,7 @@
                 "op":"ins",
                 "personid":person,
                 "persontype":persontype,
-                "billno":billno,
+                "remark":remark,
                 "date":date,
                 "index":index,
                 "json":jsondata
@@ -127,13 +127,12 @@ if(type==="Tailor")
                       
       for(j=0;j<header.length;j++)
       {
-      var head=createHeader1(header[j],"d");
-      //alert(head);
+      var head=createHeaderItemInward(header[j],"d");
+     
        myrow.append(head.append(header[j]+"</th>"));
       }
       myrow.append("</tr>");
-     // myrow.append("</thead>");
-     // thead.append(myrow);
+   
       mytabel.append(myrow);
     
     

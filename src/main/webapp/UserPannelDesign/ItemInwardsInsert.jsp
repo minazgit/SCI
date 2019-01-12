@@ -45,14 +45,14 @@ overflow-y: auto;
                     // var person=$("#select option:selected").text();
                       date=$("#date").val();
                     billno=$("#billno").val();
-                     alert(date);
-                   alert(billno);
+                     //alert(date);
+                  // alert(billno);
         ctrlitemname=$(".itemname");
         ctrlquantity=$(".c1");
         ctrlbuying=$(".c2");
         ctrlselling=$(".c3");
         ctrlremark=$(".c4");
-        alert(ctrlitemname.length);
+        //alert(ctrlitemname.length);
        jsondata="[";
         for(i=0;i<ctrlitemname.length;i++)
         {
@@ -68,9 +68,9 @@ overflow-y: auto;
         }
         jsondata=jsondata.slice(0,jsondata.length-1);
         jsondata=jsondata+"]";
-        alert(person);
-        alert(billno);
-        alert(date);
+      //  alert(person);
+        //alert(billno);
+        //alert(date);
         $.ajax({url: "<%=application.getContextPath()%>/SerItemInward",
             data:{
                 "op":"ins",
