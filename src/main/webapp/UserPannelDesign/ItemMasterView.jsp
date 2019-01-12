@@ -11,7 +11,32 @@
         <%@include file="headerfiles.jsp" %>
     
     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
-   
+     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+    
+           $(document).ready(function(){
+              alert("hello");
+            $("#d1").click(function(event)
+            {    
+              event.preventDefault();
+  var txt;
+  if (confirm("do u want to delete?")) 
+  {   
+      alert(this.href);
+    location.href=this.href;
+    
+  }
+  else
+  {
+    txt = "Canceled";
+  }
+ 
+
+                 
+        });
+           });
+    
+    </script>
     
 </head>
 <body>
@@ -44,6 +69,8 @@
                         <th>Item name</th>
                         <th>Category</th>
                         <th>Sub-category</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                       </tr>
                        </thead>
                         <tbody>
@@ -61,6 +88,8 @@
                         <td><%=im.getItemname()%></td>
                         <td><%= im.getItemCategory()%></td>
                         <td><%= im.getSubCategory()%></td>
+                        <td><a href="<%=application.getContextPath()%>/SerItemmMaster?id=<%=im.getItemid()%>"  id="e1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Edit.png"  height="50px"></a></td>
+                       <td><a href="<%=application.getContextPath()%>/SerItemmMaster?id=<%=im.getItemid()%>"  id="d1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Cross.png" height="50px"></a></td>
                           </tr>
                          <% }  %>
                             </tbody>

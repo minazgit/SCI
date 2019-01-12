@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.servlet.ServletContext;
 import models.ItemInwardDetails;
 import models.ItemInwardMaster;
+import org.json.JSONArray;
 
 public class ItemInwardOperations {
 
@@ -142,6 +143,44 @@ public class ItemInwardOperations {
             System.out.println("msg======" + e.getMessage());
             return "error";
         }
+    }
+    public JSONArray getItemInwardDetailsView() {
+
+       JSONArray ja=new JSONArray();
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+            rs = stmt.executeQuery("select itm.inward_index,date,pid,bill_no,itemid,purchase_price,qty,remark FROM `item_inward_master`itm inner join item_inward_details iid on itm.inward_index=iid.inward_master_index");
+
+            while (rs.next()) {
+               JSONArray je=new JSONArray();
+
+                long inwardindex = rs.getLong(1);
+                String inward_date = rs.getString(2);  
+                int pid = rs.getInt(3);
+                 long billno = rs.getLong(4);
+                 int itemid = rs.getInt(5);
+                 double purchaseprice=rs.getDouble(6);
+                int qty = rs.getInt(7);
+                String remark = rs.getString(8);
+                je.put(inwardindex+"");
+                je.put(inward_date);
+                je.put(pid+"");
+                je.put(billno+"");
+                je.put(itemid+"");
+                je.put(purchaseprice+"");
+                je.put(qty+"");
+                je.put(remark);
+               ja.put(je);
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ja;
     }
 
 }
