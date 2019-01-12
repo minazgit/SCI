@@ -64,9 +64,9 @@ function createHeader(fid)
    var ctrl=$("<th>").attr({id:fid,scope:'row'});
     return ctrl;
 }
-function createHeader1(fid)
+function createHeader1(fid,cn)
 {
-   var ctrl=$("<th>").attr({id:fid,scope:'col'});
+   var ctrl=$("<th>").attr({id:fid,class:cn,scope:'col'});
     return ctrl;
 }
 function createData(fid)

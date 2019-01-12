@@ -162,7 +162,7 @@ public class ItemMasterOperations {
     }
  public int getItemId(String iname) {
         int itd =0;
-
+     System.out.println("---"+iname);
         try {
             con = (Connection) ctx.getAttribute("con");
             stmt = con.createStatement();
