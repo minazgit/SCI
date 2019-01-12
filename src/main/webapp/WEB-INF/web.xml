@@ -15,7 +15,7 @@
 </context-param>
 <context-param>
 <param-name>password</param-name>
-<param-value>java</param-value>
+<param-value></param-value>
 </context-param>
 <listener>
 <listener-class>Dbconnecti0n.JdbcConnection</listener-class>

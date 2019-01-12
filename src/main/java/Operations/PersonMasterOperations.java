@@ -50,6 +50,42 @@ public class PersonMasterOperations {
 
         return msg;
     }
+ public JSONArray getPersonFullNameOutward() {
+        JSONArray jnames = new JSONArray();
+        int pid;
+        String fname = "";
+        String mname = "";
+        String lname = "";
+        String fullname="";
+        String ptype="";
+        try {
+
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+            rs = stmt.executeQuery("select pid, firstname, midname, lastname, persontype from person_master where persontype='Tailor' or persontype='Remote Person' or persontype='Reference Person'");
+
+            while (rs.next()) {
+                JSONObject jnameobj=new JSONObject();
+                pid = rs.getInt(1);
+                fname = rs.getString(2);
+                mname = rs.getString(3);
+                lname = rs.getString(4);
+                ptype = rs.getString(5);
+                
+                fullname=fname+" "+mname+" "+lname;
+                jnameobj.put("pid", pid);
+                jnameobj.put("fm", fullname);
+                jnameobj.put("ptype",ptype);
+                jnames.put(jnameobj);
+                
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return jnames;
+    }
 
     public String insertPersonItem(String pid, String item[]) {
 

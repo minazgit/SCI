@@ -1,3 +1,5 @@
+<%@page import="org.json.JSONObject"%>
+<%@page import="org.json.JSONArray"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -20,24 +22,96 @@
                alert("hello");
                  $("#select").change(function(event){
                      event.preventDefault();
+                     var   persontype=$("#select option:selected").val();
          var type=$("#select option:selected").val();
-         alert(type);
+         alert(persontype);
+          var person=$("#select option:selected").attr('id');
          $("#d1").remove();
-        ItemOutward(type);
+        ItemOutward(type,person);
            });
+               $("#submit").click(function(event){
+                     event.preventDefault();
+                    var   persontype=$("#select option:selected").val();
+                     var person=$("#select option:selected").attr('id');
+                      date=$("#date").val();
+                    remark=$("#remark").val();
+                    index=$("#index").val();
+//                    alert(persontype);
+//                    alert(person);
+//                    alert(date);
+//                    alert(billno);
+//                    alert(index);
+                     var ctrlselling="";
+                     var selling="";
+                      ctrlheader=$(".d");
+                      ctrlitemname=$(".itemname");
+                 //    alert(ctrlheader.length);
+                      for(i=1;i<=ctrlheader.length-1;i++)
+                      {
+                          if(i===1)
+                          ctrlquantity=$(".c"+i);
+                         
+                        if(i===2)
+                             ctrlselling=$(".c"+i);
+                          
+                      }
+//                      alert("----"+ctrlquantity.length);
+//                      
+//                      alert("----"+ctrlitemname.length);
+                        jsondata="[";
+                        for(j=0;j<ctrlitemname.length;j++)
+        {
+            itemname=$(ctrlitemname[j]).html();
+            quantity=$(ctrlquantity[j]).val();
+//             alert(itemname);
+//          alert(quantity);
+           if(ctrlselling!=="")
+           {
+            selling=$(ctrlselling[j]).val();
+           //  alert(selling);
+        }
+         
+         
+          jsondata=jsondata+"{\"in\":\""+itemname+"\",\"q\":\""+quantity+"\"";
+        
+               jsondata=jsondata+",\"selling\":\""+selling+"\"";
+           
+          jsondata=jsondata+"},";
+         
+        }
+         jsondata=jsondata.slice(0,jsondata.length-1);
+        jsondata=jsondata+"]";  
+        alert(jsondata);
+                 $.ajax({url: "<%=application.getContextPath()%>/SerItemOutwards",
+            data:{
+                "op":"ins",
+                "personid":person,
+                "persontype":persontype,
+                "remark":remark,
+                "date":date,
+                "index":index,
+                "json":jsondata
+                
+            },
+            type: 'POST',
+        success: function(result){
+            alert(result);
+    
+  }}); 
+                      });
        });
        
-       function ItemOutward(type){
-        $.post("<%=application.getContextPath()%>/SerItemOutwards",{"type":type},function(responseText,statusText,xhr){
+       function ItemOutward(type,person){
+        $.post("<%=application.getContextPath()%>/SerItemOutwards?op=xyz",{"person":person},function(responseText,statusText,xhr){
                      // var header=["Item List","Quantity"];
                       obj=JSON.parse(responseText);
                      // alert(obj);
-if(type==="tailor")
+if(type==="Tailor")
           {
-          var header=["type","quantity"];
+          var header=["type","quantity (in meters)"];
          // alert(header);
           }
-      if(type==="unitlocation")
+      if(type==="Remote Person" || type==="Reference Person")
           {
           var header=["type","quantity","selling price"];
          }
@@ -45,7 +119,7 @@ if(type==="tailor")
                      
                        var mytabel=createTable('t1');
                      //  var thead=createThead('th1');
-                      alert(mytabel);
+                      //alert(mytabel);
                       var myrow=createRow('r1');
                      // myrow.append("</tr>");
                       //mytabel.append(myrow);
@@ -53,13 +127,12 @@ if(type==="tailor")
                       
       for(j=0;j<header.length;j++)
       {
-      var head=createHeader1(header[j]);
-      //alert(head);
+      var head=createHeaderItemInward(header[j],"d");
+     
        myrow.append(head.append(header[j]+"</th>"));
       }
       myrow.append("</tr>");
-     // myrow.append("</thead>");
-     // thead.append(myrow);
+   
       mytabel.append(myrow);
     
     
@@ -69,12 +142,12 @@ if(type==="tailor")
                       {
                         var myrow1=createRow(obj[i]);
                       
-                       var  data1=createHeader(obj[i]);
+                       var  data1=createHeaderItemInward(obj[i],"itemname");
                              myrow1.append(data1.append(obj[i]+"</th>"));
                          for(k=1;k<header.length;k++)
                         {
                            var data=createData(header[k]);
-                          var text= createTextbox1(obj[i]+" "+header[k]);
+                          var text= createTextbox1ItemInward(obj[i],"c"+k);
                          //  $("#row1").append(text);
                            data.append(text);
                            myrow1.append(data);
@@ -127,31 +200,42 @@ if(type==="tailor")
                                             <div class="col col-md-3"><label for="select" class=" form-control-label">Person</label></div>
                                             <div class="col-12 col-md-9">
                                                 <select name="select" id="select" class="form-control">
-                                                    <option value="0"> select person</option>
-                                                    <option value="Hitesh">Hitesh Bhai</option>
-                                                    <option value="tailor">AAA</option>
-                                                    <option value="unitlocation">XXX</option>
-                                                    <option value="3">GGG</option>
+                                                   <option value="-1">SELECT PERSON NAME </option>
+                                                    <% JSONArray ja=(JSONArray)session.getAttribute("nid1");
+                                                        for(int i=0;i< ja.length();i++)
+                                                        {
+                                                           JSONObject jo= ja.getJSONObject(i);
+                                                      
+                                                        
+                                                %>
+                                                    <option value="<%=jo.getString("ptype")%>" id="<%=jo.getString("pid")%>"><%=jo.getString("fm")%></option>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </select>
                                             </div>
+                                                </div>
+                                                <div class="row form-group">
                                              <div class="col col-md-3"><label for="hf-password" class=" form-control-label">Date</label></div>
-                                            <div class="col-12 col-md-9"><input type="date"  id="text-input" name="text-input" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                            <div class="col-12 col-md-9"><input type="date"  id="date" name="text-input" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                      
                                         </div>
 
                                      
                                         <div class="row form-group">
                                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">Remark</label></div>
-                                            <div class="col-12 col-md-9"><input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>                         
+                                            <div class="col-12 col-md-9"><input type="text" id="remark" name="text-input" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>   
+                                            </div>
+                                                <div class="row form-group">
                                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">inward index</label></div>
-                                            <div class="col-12 col-md-9"><input type="text" id="text-input" name="text-input" placeholder="Auto generate" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                            <div class="col-12 col-md-9"><input type="text" id="index" name="text-input" placeholder="Auto generate" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                         </div>
                                         <div class="row" id="row">
                                           </div>
                                     </form>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm">
+                                    <button type="submit" id="submit" class="btn btn-primary btn-sm">
                                         <i class="fa fa-dot-circle-o"></i> Submit
                                     </button>
 

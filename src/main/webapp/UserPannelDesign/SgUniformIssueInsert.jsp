@@ -52,7 +52,8 @@ overflow-y: auto;
          'orderable': false,
          'className': 'dt-body-center',
          'render': function (data, type, full, meta){
-             return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
+             //alert($('<div/>').text(data).html());
+             return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html(). + '">';
          }
       }],
       'order': [[1, 'asc']]          
