@@ -52,7 +52,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Item outwards</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="ItemOutwardsInsert.jsp">Add</a></li>
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%=application.getContextPath()%>/SerItemOutwards?op=pn1">Add</a></li>
                             <li><i class="menu-icon ti-themify-logo"></i><a href="ItemOutwardsView.jsp">View</a></li>
                         </ul>
                     </li>
@@ -64,7 +64,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Uniform issue details</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="SgUniformIssueInsert.jsp">Add</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="<%=application.getContextPath()%>/SerSecurityGuard?op=unitname">Add</a></li>
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="SgUniformIssueView.jsp">View</a></li>                         
                         </ul>
                     </li>

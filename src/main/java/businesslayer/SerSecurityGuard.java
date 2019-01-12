@@ -14,7 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Securityguard;
+import org.json.JSONArray;
 
 /**
  *
@@ -38,6 +40,7 @@ System.out.println("hiii");
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        doPost(request,response);
        // processRequest(request, response);
     }
 
@@ -47,6 +50,10 @@ System.out.println("hiii");
     //    processRequest(request, response);
           PrintWriter out=response.getWriter();
           System.out.println("-----");
+          String op=request.getParameter("op");
+          System.out.println("----"+op);
+          if(op.equals("insert"))
+          {
           String firstname=request.getParameter("firstname");
             System.out.println(firstname);
             
@@ -71,7 +78,7 @@ System.out.println("hiii");
            sg.setContactno(Long.parseLong(contactnumber));
            sg.setFirstname(firstname);
            sg.setLastname(lastname);
-           sg.setMidname(unitname);
+           sg.setMidname(middlename);
            sg.setRefname(refname);
            sg.setUnitLocation(unitlocation);
            sg.setUnitname(unitname);
@@ -79,6 +86,15 @@ System.out.println("hiii");
        String msg=sgo.insertPerson(sg);
        out.println(msg);
          System.out.println("success");
+          }
+          else if(op.equals("unitname")){
+              SecurityGuardMasterOperations scg=new SecurityGuardMasterOperations(scx);
+              JSONArray ja= scg.getUnitName();
+              HttpSession hs=request.getSession(true);
+              hs.setAttribute("unitname", ja);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformIssueInsert.jsp");
+          }
+         
     }
 
 }

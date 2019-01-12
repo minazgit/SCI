@@ -3,7 +3,11 @@ package Operations;
 import models.ItemInwards;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 import javax.servlet.ServletContext;
+import models.ItemInwardDetails;
+import models.ItemInwardMaster;
 
 public class ItemInwardOperations {
 
@@ -16,19 +20,40 @@ public class ItemInwardOperations {
     public ItemInwardOperations(ServletContext ctx) {
         this.ctx = ctx;
     }
+    
+    
+    
 
-    public String insertItemInward(ItemInwards iobj) {
+    public String insertItemInward(ItemInwardMaster iobj) {
 
         String msg = "";
+        String item_index="";
+        PreparedStatement pstmt=null;
+        String sql="insert into item_inward_master(date, bill_no, pid) values(?,?,?)";
         try {
             con = (Connection) ctx.getAttribute("con");
             if (con != null) {
                 stmt = con.createStatement();
 
                 if (iobj != null) {
-
-                    stmt.executeUpdate("insert into item_inwards(itemid, inward_date, qty, pid, billno, bying_price, remark) values(" + iobj.getItemMaster().getItemid() + ",'" + iobj.getInwardDate() + "'," + iobj.getQty() + "," + iobj.getPersonMaster().getPid() + "," + iobj.getBillno() + "," + iobj.getByingPrice() + ",'" + iobj.getRemark() + "')");
-
+                    pstmt=con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+                    pstmt.setDate(1,new java.sql.Date(iobj.getDate().getTime()));
+                    pstmt.setLong(2,iobj.getBillNo());
+                    pstmt.setInt(3, iobj.getPersonMaster().getPid());
+                    pstmt.executeUpdate();
+                   // stmt.executeUpdate("insert into item_inward_master(date, bill_no, pid) values(" + iobj.getDate() + "," + iobj.getBillNo() + "," + iobj.getPersonMaster().getPid() + ")",Statement.RETURN_GENERATED_KEYS);
+                    ResultSet rs = pstmt.getGeneratedKeys();
+                    while (rs.next()) {
+                     item_index = rs.getString(1);
+                    }
+                  Set<ItemInwardDetails> s=  iobj.getItemInwardDetailses();
+                  Iterator it=s.iterator();
+                  while(it.hasNext())
+                  {
+                     ItemInwardDetails id=(ItemInwardDetails)it.next();
+                     stmt.executeUpdate("insert into item_inward_details(inward_master_index, itemid, qty, purchase_price, balance, remark) values(" + item_index + "," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getPurchasePrice() + ","+id.getBalance()+",'"+id.getRemark()+"')");
+                   
+                  }
                     msg = "success";
 
                 } else {

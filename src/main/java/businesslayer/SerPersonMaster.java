@@ -47,6 +47,9 @@ System.out.println("hiii");
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             PrintWriter out=response.getWriter();
+             String op = request.getParameter("op");
+             if(op.equals("insert"))
+             {
             String firstname=request.getParameter("firstname");
             String middlename=request.getParameter("middlename");
             String lastname=request.getParameter("lastname");
@@ -82,6 +85,11 @@ System.out.println("hiii");
        // pm.setPincode();
         //pm.set
             System.out.println("Success");
+             }
+             else if(op.equals("unitname"))
+             {
+                 
+             }
         
     }
 

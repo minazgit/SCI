@@ -192,8 +192,8 @@ div.dataTables_wrapper {
                    %>
                    <tr>
                     
-                       <td><%=(String)jo.get("empno")%></td>
-                        <td><%=(String) jo.get("name")%></td>
+                       <td><%=String.valueOf(jo.get("empcode"))%></td>
+                        <td><%=(String) jo.get("firstname")%> <%=(String) jo.get("middlename")%>  <%=(String) jo.get("lastname")%></td>
                         <% for(int j=0;j<jcolumn.length();j++)
                     {
                    %> 
