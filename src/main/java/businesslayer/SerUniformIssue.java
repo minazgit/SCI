@@ -6,6 +6,8 @@
 
 package businesslayer;
 
+import Operations.GuardUniformIssueOperations;
+import Operations.SecurityGuardMasterOperations;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
@@ -45,40 +47,25 @@ System.out.println("hiii");
        String a=request.getParameter("empno");
       String unit= request.getParameter("unit");
        System.out.println(unit);
+               System.out.println("----"+a);
        StringTokenizer st=new StringTokenizer(a);
        JSONArray ja=new JSONArray();
-       int i=0;
+       
        
        while(st.hasMoreTokens())
        {
             JSONObject jno=new JSONObject();
            String empno=st.nextToken();
-           
-               String name="shravan patel"+i;
-               jno.put("empno",empno);
-           jno.put("name",name);
-           
+           SecurityGuardMasterOperations sg=new SecurityGuardMasterOperations(scx);
+           jno=sg.getAllSecurityNameEmpNo(empno);
            ja.put(jno);
-           i++;
+          
            System.out.println(""+empno);
        }
-       JSONArray jc=new JSONArray();
-       jc.put("shirt");
-       jc.put("pent");
-       jc.put("belt");
-       jc.put("jacket");
-       jc.put("sweater");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
-       jc.put("ddfd");
+      SecurityGuardMasterOperations sc=new SecurityGuardMasterOperations(scx);      
        HttpSession  hs=request.getSession(true);
+       JSONArray jc=new JSONArray();
+       jc=sc.getItemName();
        hs.setAttribute("empno", ja);
        hs.setAttribute("column", jc);
        response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/UniformIssuePerson.jsp");
@@ -92,24 +79,12 @@ System.out.println("hiii");
         
         PrintWriter out= response.getWriter();
         try {
-              JSONArray ja= new JSONArray();
-            for(int i=0;i<15;i++)
-                    {
-             JSONObject jo= new JSONObject();
-             jo.put("value","10"+i);
-             jo.put("empno","10"+i);
-             jo.put("fname","sneh"+i);
-             jo.put("middlename","rajeshbhai"+i);
-             jo.put("lastname","patel"+i);
-             ja.put(jo);
-                    }
-           
-             
-           
-             JSONObject je=new JSONObject();
-             je.put("data",ja);
+              SecurityGuardMasterOperations sg=new SecurityGuardMasterOperations(scx);
+             String unit= request.getParameter("unit");
               
-              out.println(je);
+              JSONObject  jo= sg.getSecurityNameEmpNo(unit);
+              System.out.println("-------"+jo);
+              out.println(jo);
 //            JSONArray ja=new JSONArray();
 //             ja.put("jeans");
 //             ja.put("shirt");

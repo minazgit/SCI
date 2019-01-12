@@ -29,7 +29,7 @@
          var contactnumber=$("#contactno").val();
         alert(contactnumber);
         $.ajax( {
-            url:'<%=application.getContextPath()%>/SerSecurityGuard',
+            url:'<%=application.getContextPath()%>/SerSecurityGuard?op=insert',
                  
                   type:"post",
                   data:{

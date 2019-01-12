@@ -32,7 +32,7 @@
                 var city=$("#city option:selected").text();
                 var state=$("#state option:selected").text();
              $.ajax( {
-                  url:'<%=application.getContextPath()%>/SerPersonMaster?item='+itemlist+'',
+                  url:'<%=application.getContextPath()%>/SerPersonMaster?item='+itemlist+'&op=insert',
                   success:function(responseText,statusText,xmlHttp) {
                       alert(responseText);
                       $("#msg").html(responseText);
