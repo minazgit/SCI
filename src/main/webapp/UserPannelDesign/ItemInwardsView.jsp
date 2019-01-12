@@ -1,3 +1,7 @@
+<%@page import="org.json.JSONArray"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.ItemInwards"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -37,42 +41,34 @@
                                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Index</th>
-                                                 <th>Item</th>
-                                                <th>Date</th>
-                                                <th>Unit/Qty</th>
-                                                <th>Person</th>                                               
-                                                <th>Remark</th>                                                
+                                                <th>Inward Index</th>
+                                                 <th>Date</th>
+                                                <th>pid</th>
+                                                <th>BillNumber</th>
+                                                <th>Item Id</th>                                               
+                                                <th>PurchasePrice</th>
+                                                <th>Qty</th>
+                                                <th>Remark</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>shirt-cloth</td>
-                                                <td>01/12/18</td>
-                                                <td>80</td>
-                                                <td>Roham</td>                                              
-                                                <td>-</td>
-                                                                                                                                          
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Cap</td>
-                                                <td>05/12/18</td>
-                                                <td>70</td>
-                                                <td>Dhiral</td>                                              
-                                                <td>nfgtor</td>
-                                                                                                                                          
-                                            </tr>
-                                           <tr>
-                                                <td>1</td>
-                                                <td>pent</td>
-                                                <td>11/12/18</td>
-                                                <td>80</td>
-                                                <td>Hitesh Tailor</td>                                              
-                                                <td>-</td>
-                                                                                                                                          
-                                            </tr>
+                                          <%
+                          JSONArray getinward = (JSONArray)session.getAttribute("getinward");
+                                                               for(int i=0;i<getinward.length();i++){
+                                                               JSONArray im=(JSONArray)getinward.get(i);
+                                                               
+                            %>
+                            <tr>
+                                <td><%=im.get(0)%></td>
+                                <td><%=im.get(1)%></td>
+                                <td><%=im.get(2)%></td>
+                                <td><%=im.get(3)%></td>
+                                <td><%=im.get(4)%></td>
+                                <td><%=im.get(5)%></td>
+                                <td><%=im.get(6)%></td>
+                                <td><%=im.get(7)%></td>
+                            </tr>
+                            <%  } %>
                                         </tbody>
                                     </table>
                                 </div>

@@ -183,10 +183,10 @@ public class PersonMasterOperations {
                 String persontype = rs.getString(5);
                 Long contactno = rs.getLong(6);
                 String addline1 = rs.getString(7);
-                String addline2 = rs.getString(9);
-                String city = rs.getString(10);
-                String state = rs.getString(11);
-                int pincode = rs.getInt(12);
+                String addline2 = rs.getString(8);
+                String city = rs.getString(9);
+                String state = rs.getString(10);
+                int pincode = rs.getInt(11);
 
                 pobj.setPid(pid);
                 pobj.setFirstname(firstname);

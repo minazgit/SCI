@@ -1,3 +1,6 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="models.Securityguard"%>
+<%@page import="java.util.ArrayList"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -8,8 +11,26 @@
         <%@include file="headerfiles.jsp" %>
 
         <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
-
+        <script>
+$(document).ready(function(){
+              
+            $("#d1").click(function(event)
+            {      
+              event.preventDefault();
+  var txt;
+  if (confirm("do u want to delete?")) 
+  {   
+    location.href=this.href;
+  }
+  else
+  {
+    txt = "Canceled";
+  }
+ 
+});
+                 
+        });
+</script>
     </head>
     <body>
         <!-- Left Panel -->       
@@ -42,35 +63,29 @@
                                                 <th>Mid name</th>
                                                 <th>Last name</th>                                               
                                                 <th>Contact No.</th>
-                                                
+                                                <th>Edit</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <%
+                                            ArrayList<Securityguard>view=(ArrayList<Securityguard>)session.getAttribute("securityguard");
+                                             Iterator it=view.iterator();
+                                                                while(it.hasNext())
+                                                                {
+                                                               Securityguard sg=(Securityguard)it.next();
+                                            %>
                                             <tr>
-                                                <td>1</td>
-                                                <td>Jisan</td>
-                                                <td>M</td>
-                                                <td>Patel</td>                                              
-                                                <td>9988998899</td>
-                                                                                                                                          
+                                                <td><%=sg.getEmpcode()%></td>
+                                                <td><%=sg.getFirstname()%></td>
+                                                <td><%=sg.getMidname()%></td>
+                                                <td><%=sg.getLastname()%></td>
+                                                <td><%=sg.getContactno()%></td>
+                                                 <td><a href="<%=application.getContextPath()%>/SerSecurityGuard?id=<%=sg.getEmpcode()%>"  id="e1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Edit.png"  height="50px"></a></td>
+                                                  <td><a href="<%=application.getContextPath()%>/SerSecurityGuard?op=delete&id=<%=sg.getEmpcode()   %>"  id="d1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Cross.png" height="50px"></a></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>jinit</td>
-                                                <td>K</td>
-                                                <td>Murti</td>                                               
-                                                <td>7766776677</td>
-                                                                                                                                           
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Hitesh</td>
-                                                <td>S</td>
-                                                <td>Dixit</td>                                               
-                                                <td>4455445544</td>
-                                                                                                                                           
-                                            </tr>
-                                        </tbody>
+                                             <%  }   %>
+                                        </tbody> 
                                     </table>
                                 </div>
                             </div>

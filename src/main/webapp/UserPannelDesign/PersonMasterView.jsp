@@ -1,3 +1,6 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.PersonMaster"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -8,7 +11,28 @@
         <%@include file="headerfiles.jsp" %>
 
         <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
+        <script>
+             $(document).ready(function(){
+              
+            $("#d1").click(function(event)
+            {      
+              event.preventDefault();
+  var txt;
+  if (confirm("do u want to delete?")) 
+  {   
+      alert(this.href);
+    location.href=this.href;
+  }
+  else
+  {
+    txt = "Canceled";
+  }
+ 
+            });
+                 
+        });
+            
+            </script>
 
     </head>
     <body>
@@ -37,60 +61,42 @@
                                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>First name</th>
-                                                <th>Mid name</th>
-                                                <th>Last name</th>
+                                                
+                                                <th>Name</th>
                                                 <th>Person Type</th>
-                                                <th>Organization </th>
+                                             
                                                 <th>Contact No.</th>
                                                 <th>Add Line 1</th>
                                                 <th>Add Line 2</th>
                                                 <th>City</th>
-                                                <th>State</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Jisan</td>
-                                                <td>M</td>
-                                                <td>Patel</td>
-                                                <td>Cloth Supplier</td>
-                                                 <td>ABC ltd</td>
-                                                <td>9988998899</td>
-                                                <td>19, abc complex</td>
-                                                <td>new vip road</td>
-                                                <td>Vadodara</td>
-                                                <td>Gujarat </td>                                                                                               
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>jinit</td>
-                                                <td>K</td>
-                                                <td>Murti</td>
-                                                <td>Article Supplier</td>
-                                                <td>XXX </td>
-                                                <td>7766776677</td>
-                                                <td>2, aviskar society</td>
-                                                <td>Nizampura</td>
-                                                <td>Vadodara</td>
-                                                <td>Gujarat</td>                                                                                               
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Hitesh</td>
-                                                <td>S</td>
-                                                <td>Dixit</td>
-                                                <td>Tailor</td>
-                                                 <td>yyy</td>
-                                                <td>4455445544</td>
-                                                <td>7, navjot park</td>
-                                                <td>ring road</td>
-                                                <td>Surat</td>
-                                                <td>Gujarat</td>                                                                                               
-                                            </tr>
-                                        </tbody>
+                                           
+                       <%
+                            ArrayList<PersonMaster> getitem = (ArrayList<PersonMaster>)session.getAttribute("getPersonlist");
+                                                                Iterator it=getitem.iterator();
+                                                                while(it.hasNext())
+                                                                {
+                                                               PersonMaster im=(PersonMaster)it.next();
+                                                               
+                            %>
+                           
+                      <tr>
+                          <td><%= im.getFirstname()%> <%= im.getMidname()%> <%= im.getLastname()%></td>
+                        <td><%=im.getPersontype()%></td>
+                        <td><%= im.getContactno()%></td>
+                        <td><%= im.getAddline1()%></td>
+                        <td><%= im.getAddline2()%></td>
+                         <td><%= im.getCity()%></td>
+                         <td><a href="<%=application.getContextPath()%>/SerPersonMaster?id=<%=im.getPid()%>"  id="e1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Edit.png"  height="50px"></a></td>
+                         <td><a href="<%=application.getContextPath()%>/SerPersonMaster?op=delete&id=<%=im.getPid()%>"  id="d1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Cross.png" height="50px"></a></td>
+                      </tr>
+                         <% }  %>
+                            </tbody>
                                     </table>
                                 </div>
                             </div>

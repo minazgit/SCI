@@ -11,6 +11,7 @@ import Operations.PersonMasterOperations;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -144,6 +145,13 @@ public class SerItemInward extends HttpServlet {
                 System.out.println("116" + ex.getMessage());
             }
 
+        }
+        else if(op.equals("view")){
+            ItemInwardOperations iio=new ItemInwardOperations(scx);
+            JSONArray getitem =iio.getItemInwardDetailsView();
+              HttpSession hs= request.getSession(true);
+              hs.setAttribute("getinward",getitem);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/ItemInwardsView.jsp");
         }
     }
 

@@ -9,12 +9,15 @@ import Operations.ItemMasterOperations;
 import Operations.PersonMasterOperations;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.ItemMaster;
 import models.PersonMaster;
 
 /**
@@ -40,7 +43,7 @@ System.out.println("hiii");
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+       doPost(request,response);
     }
 
     @Override
@@ -48,6 +51,8 @@ System.out.println("hiii");
             throws ServletException, IOException {
             PrintWriter out=response.getWriter();
              String op = request.getParameter("op");
+             System.out.println("----=="+op);
+             PersonMasterOperations pmo=new PersonMasterOperations(scx);
              if(op.equals("insert"))
              {
             String firstname=request.getParameter("firstname");
@@ -65,7 +70,7 @@ System.out.println("hiii");
             String state=request.getParameter("state");
             String pincode=request.getParameter("pincode");
            // System.out.println(firstname+middlename+lastname+persontype+itemlist+organizationname+contactnumber+addressline1+addressline2+city+state);
-        PersonMasterOperations pmo=new PersonMasterOperations(scx);
+        
         PersonMaster pm=new PersonMaster();
        
         pm.setFirstname(firstname);
@@ -86,11 +91,24 @@ System.out.println("hiii");
         //pm.set
             System.out.println("Success");
              }
+             else if(op.equals("2"))
+             {
+                 System.out.println("----");
+                 ArrayList<PersonMaster> getitem =pmo.getPersonDetails();
+              HttpSession hs= request.getSession(true);
+              hs.setAttribute("getPersonlist",getitem);
+                 System.out.println("++++");
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/PersonMasterView.jsp");
+             }
+              else if(op.equals("delete")){
+                pmo.deletePerson(Integer.parseInt(request.getParameter("id")));
+                response.sendRedirect(scx.getContextPath()+"/SerPersonMaster?op=2");
+              }
              else if(op.equals("unitname"))
              {
                  
              }
-        
+        out.print("Success");
     }
 
     /**
