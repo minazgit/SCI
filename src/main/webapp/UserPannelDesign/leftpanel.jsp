@@ -24,7 +24,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Person Master</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="<%= application.getContextPath()%>/SerItemmMaster?op=1">Add</a></li>
-                            <li><i class="fa fa-table"></i><a href="PersonMasterView.jsp">View</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%= application.getContextPath()%>/SerPersonMaster?op=2">View</a></li>
                         </ul>
                     </li>
                     
@@ -34,7 +34,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i> Security Guard Master</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="SecurityGuardInsert.jsp">Add</a></li>
-                            <li><i class="fa fa-table"></i><a href="SecurityGuardView.jsp">View</a></li>
+                            <li><i class="fa fa-table"></i><a href="<%= application.getContextPath()%>/SerSecurityGuard?op=2">View</a></li>
                         </ul>
                     </li>
 
@@ -45,7 +45,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Item inwards </a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=pn">Add</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a href="ItemInwardsView.jsp">View</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=view">View</a></li>
                         </ul>
                     </li>
 

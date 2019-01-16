@@ -63,6 +63,12 @@ System.out.println("hiii");
               hs.setAttribute("getitemlist",getitem);
               response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/ItemMasterView.jsp");
           }
+           else if(request.getParameter("id")!=null){
+              
+              imo.deleteItem(Integer.parseInt(request.getParameter("id")));
+              response.sendRedirect(scx.getContextPath()+"/SerItemmMaster?op1=2");
+          
+          }
           else
           {
             String item_name= request.getParameter("item_name");

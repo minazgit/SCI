@@ -32,6 +32,15 @@ overflow-y: auto;
                      event.preventDefault();
                      
          var unit=$("#unit option:selected").text();
+         if ( $.fn.dataTable.isDataTable( '#example' ) )
+
+                        {
+
+                            table = $('#example').DataTable();
+                            
+                            table.destroy();
+                            
+                        } 
     var   table=$('#example').DataTable( {
         "ajax": {"url":"<%=application.getContextPath()%>/SerUniformReturn",
         "data":{
@@ -42,8 +51,8 @@ overflow-y: auto;
          "type":"POST"},
         "columns": [
     { "data": "value" },
-            { "data": "empno" },
-            { "data": "fname" },
+            { "data": "empcode" },
+            { "data": "firstname" },
             { "data": "middlename" },
              { "data": "lastname" }
         ],
@@ -78,8 +87,8 @@ overflow-y: auto;
         }
     });
     data=data.trim();
-//    alert(data);
-    location.href="<%=application.getContextPath()%>/SerUniformReturn?empno="+data+"&unit="+unit;
+    alert(data);
+    location.href="<%=application.getContextPath()%>/SerUniformReturn?empno="+data+"&unit="+unit+"&op=unit";
        }); 
         });
      });
@@ -207,7 +216,7 @@ overflow-y: auto;
                                         <div class="row form-group">
                                             <div class="col col-md-3"><label for="select" class=" form-control-label">Unit</label></div>
                                             <div class="col-12 col-md-9">
-                                                <%
+                                              <%
                                                 JSONArray ja=(JSONArray)session.getAttribute("unitname");
                                                 
                                                 %>

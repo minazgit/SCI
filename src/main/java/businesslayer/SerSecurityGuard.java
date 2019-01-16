@@ -8,6 +8,7 @@ package businesslayer;
 import Operations.SecurityGuardMasterOperations;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -52,6 +53,7 @@ System.out.println("hiii");
           System.out.println("-----");
           String op=request.getParameter("op");
           System.out.println("----"+op);
+           SecurityGuardMasterOperations scg=new SecurityGuardMasterOperations(scx);
           if(op.equals("insert"))
           {
           String firstname=request.getParameter("firstname");
@@ -102,6 +104,25 @@ System.out.println("hiii");
                     response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformReturnInsert.jsp");
               
               }
+          }
+          else if(op.equals("unitname2")){
+             
+              JSONArray ja= scg.getUnitName();
+              HttpSession hs=request.getSession(true);
+              hs.setAttribute("unitname", ja);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformReturnInsert.jsp");
+          }
+          else if(op.equals("2")){
+              ArrayList<Securityguard>view=scg.getSecurityGuardDetails();
+              HttpSession hs= request.getSession(true);
+              hs.setAttribute("securityguard",view);
+                 System.out.println("++++");
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SecurityGuardView.jsp");
+              
+          }
+          else if(op.equals("delete")){
+              scg.deleteSecurityGuard(Integer.parseInt(request.getParameter("id")));
+               response.sendRedirect(scx.getContextPath()+"/SerSecurityGuard?op=2");
           }
          
     }
