@@ -42,16 +42,19 @@ System.out.println("hiii");
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
            PrintWriter out= response.getWriter();
+          
            try{
        System.out.println("hello");
        String a=request.getParameter("empno");
       String unit= request.getParameter("unit");
+      String op=request.getParameter("op");
        System.out.println(unit);
                System.out.println("----"+a);
        StringTokenizer st=new StringTokenizer(a);
        JSONArray ja=new JSONArray();
        
-       
+       if(op.equals("unit"))
+       {
        while(st.hasMoreTokens())
        {
             JSONObject jno=new JSONObject();
@@ -62,6 +65,8 @@ System.out.println("hiii");
           
            System.out.println(""+empno);
        }
+           
+      
       SecurityGuardMasterOperations sc=new SecurityGuardMasterOperations(scx);      
        HttpSession  hs=request.getSession(true);
        JSONArray jc=new JSONArray();
@@ -69,6 +74,8 @@ System.out.println("hiii");
        hs.setAttribute("empno", ja);
        hs.setAttribute("column", jc);
        response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/UniformIssuePerson.jsp");
+           
+           }
            }catch(Exception e)
            {
                System.out.println(e.getMessage());
@@ -85,12 +92,6 @@ System.out.println("hiii");
               JSONObject  jo= sg.getSecurityNameEmpNo(unit);
               System.out.println("-------"+jo);
               out.println(jo);
-//            JSONArray ja=new JSONArray();
-//             ja.put("jeans");
-//             ja.put("shirt");
-//             ja.put("t_shirt");
-//             ja.put("socks");
-//             out.println(ja);
         } catch (Exception e) {
         }
  

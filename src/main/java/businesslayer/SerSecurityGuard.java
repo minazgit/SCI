@@ -96,6 +96,13 @@ System.out.println("hiii");
               hs.setAttribute("unitname", ja);
               response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformIssueInsert.jsp");
           }
+          else if(op.equals("unitname2")){
+             
+              JSONArray ja= scg.getUnitName();
+              HttpSession hs=request.getSession(true);
+              hs.setAttribute("unitname", ja);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformReturnInsert.jsp");
+          }
           else if(op.equals("2")){
               ArrayList<Securityguard>view=scg.getSecurityGuardDetails();
               HttpSession hs= request.getSession(true);
