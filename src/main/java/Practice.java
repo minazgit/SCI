@@ -22,16 +22,17 @@ public class Practice extends HttpServlet {
             throws ServletException, IOException {
            PrintWriter out= response.getWriter();
        System.out.println("hello");
-       String a=request.getParameter("empno");
-      String unit= request.getParameter("unit");
-       System.out.println(unit);
-       StringTokenizer st=new StringTokenizer(a);
+       String mes=request.getParameter("mes");
+      String sp= request.getParameter("sp");
+       out.println(mes+"<br>");
+       out.println(sp+"<br>");
+      /* StringTokenizer st=new StringTokenizer(a);
        while(st.hasMoreTokens())
        {
            String empno=st.nextToken();
            System.out.println(""+empno);
        }
-   System.out.println(a);
+   System.out.println(a);*/
    }
    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -32,8 +32,9 @@
                        "sub_category":sub_category
             },
                   success:function(data) {
-                     alert(data);
+                    
                      $("#msg").html(data);
+                     $("#msg").fadeOut(3000);
                   }
                });
             });
@@ -71,7 +72,9 @@
                                 </div>
                                 <div>
                                   
-                                    <div id="msg"></div>
+                                    <div>
+                                        <h3 id="msg" style="color:brown;" align="center"></h3>
+                                    </div>
                                 </div>
                                 <div class="card-body card-block">
                                     <form action="" method="post" class="form-horizontal">

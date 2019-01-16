@@ -1,9 +1,10 @@
 package Operations;
 
-import models.GuardUniformIssue;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
+import models.GuardIssueDetail;
+import models.GuardIssueMaster;
 import models.ItemInwards;
 import models.ItemMaster;
 import models.Securityguard;
@@ -20,17 +21,28 @@ public class GuardUniformIssueOperations {
         this.ctx = ctx;
     }
     
-    public String insertUniformIssue(GuardUniformIssue iobj) {
+    public String insertUniformIssueMaster(GuardIssueMaster iobj) {
         
         String msg = "";
+        String item_index=null;
+         PreparedStatement pstmt=null;
+        String sql="insert into guard_issue_master( issue_date, empcode) values(?,?)";       
         try {
             con = (Connection) ctx.getAttribute("con");
             if (con != null) {
                 stmt = con.createStatement();
-                
-                if (iobj != null) {
-                  
-                    stmt.executeUpdate("insert into guard_uniform_issue(issuedate, sgid, itemid, qty, remark, inward_index) values(" + iobj.getIssuedate() + "," + iobj.getSecurityguard().getEmpcode() + "," + iobj.getItemMaster().getItemid() + "," + iobj.getQty() + ",'" + iobj.getRemark() + "'," + iobj.getItemInwards().getInwardindex() + ",)");
+      
+                   if (iobj != null) {
+                  pstmt=con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+                   pstmt.setDate(1,new java.sql.Date(iobj.getIssueDate().getTime()));
+                   pstmt.setInt(2,iobj.getSecurityguard().getEmpcode().intValue());
+                pstmt.executeUpdate();
+                   // stmt.executeUpdate("insert into item_inward_master(date, bill_no, pid) values(" + iobj.getDate() + "," + iobj.getBillNo() + "," + iobj.getPersonMaster().getPid() + ")",Statement.RETURN_GENERATED_KEYS);
+                    ResultSet rs = pstmt.getGeneratedKeys();
+                    while (rs.next()) {
+                     item_index = rs.getString(1);
+                    }
+                   // stmt.executeUpdate("insert into guard_issue_master( issue_date, empcode) values(" + iobj.getIssueDate() + "," + iobj.getSecurityguard().getEmpcode() + "," + iobj.getItemMaster().getItemid() + "," + iobj.getQty() + ",'" + iobj.getRemark() + "'," + iobj.getItemInwards().getInwardindex() + ",)");
                     
                     msg = "success";
                     
@@ -47,6 +59,66 @@ public class GuardUniformIssueOperations {
             System.out.println(e.getMessage());
         }
         
+        return item_index;
+    }
+     public String insertUniformIssueDetail(GuardIssueDetail pobj) {
+
+        String msg = "";
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            if (con != null) {
+                stmt = con.createStatement();
+
+                if (pobj != null) {
+
+                   // stmt.executeUpdate("insert into guard_issue_detail(itemid, qty,issue_index, selling_price, inward_index) values('" + pobj.getItemid() + "'," + pobj.getQty() + ",'" + pobj.getGuardIssueMaster().getIssueIndex() + "', '" + pobj.getSellingPrice()+ "','"+pobj.getInwardIndex()+"')");
+         
+                    //item_inward
+                    long qtn=Long.parseLong(pobj.getQty());
+                    ResultSet rsbal = stmt.executeQuery("SELECT  date,pid,balance,itemid,inward_detail_index,id.inward_master_index from item_inward_master im inner join item_inward_details id on im.inward_index=id.inward_master_index where itemid=" + pobj.getItemid() + " and balance !=0 order by date asc");
+                        System.out.println("55");
+                        String index="";
+                        while (rsbal.next()) {
+                            long bal_sum = 0;
+                            Long balance = rsbal.getLong(3);
+                           index = index + rsbal.getInt(6);
+                            bal_sum = bal_sum + balance;
+                            System.out.println("60");
+                         
+                            System.out.println("--96---" + bal_sum);
+                            System.out.println("+_+_" + rsbal.getInt(4));
+                            if (bal_sum <= qtn) {
+                                System.out.println("--99-" + bal_sum);
+                                stmt.executeUpdate("update item_inward_details set balance=0 where itemid=" + rsbal.getInt(4) + " and inward_detail_index=" + rsbal.getInt(5) + "");
+                                //stmt.executeUpdate("insert into item_outward_details(outward_master_index,itemid,qty,selling_price) values(" + item_index + "," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getSellingPrice() + ")");
+                                qtn = qtn - bal_sum;
+                                System.out.println("-102-" + qtn);
+                                System.out.println("balance " + rsbal.getString(3));
+                            } else {
+                                System.out.println("-107-" + bal_sum);
+                                bal_sum = bal_sum - qtn;
+                                System.out.println("-109-" + bal_sum);
+                                stmt.executeUpdate("update item_inward_details set balance=" + bal_sum + " where itemid=" + rsbal.getInt(4) + " and inward_detail_index=" + rsbal.getInt(5) + "");
+                       //        stmt.executeUpdate("insert into item_outward_details(outward_master_index,itemid,qty,selling_price) values(" + Integer.parseInt(index) + "," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getSellingPrice() + ")");
+                         stmt.executeUpdate("insert into guard_issue_detail(itemid, qty,issue_index, selling_price, inward_index) values('" + pobj.getItemid() + "'," + pobj.getQty() + ",'" + pobj.getGuardIssueMaster().getIssueIndex() + "', '" + pobj.getSellingPrice()+ "','"+index+"')");
+                                break;
+                            }
+                        }
+                        ////inward index over
+
+                } else {
+                    msg = "error";
+                }
+            } else {
+                msg = "error";
+            }
+            stmt.close();
+
+        } catch (Exception e) {
+            msg = "error";
+            System.out.println(e.getMessage());
+        }
+
         return msg;
     }
     
