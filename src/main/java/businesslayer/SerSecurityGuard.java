@@ -88,11 +88,20 @@ System.out.println("hiii");
          System.out.println("success");
           }
           else if(op.equals("unitname")){
+              String ui=request.getParameter("ui");
               SecurityGuardMasterOperations scg=new SecurityGuardMasterOperations(scx);
               JSONArray ja= scg.getUnitName();
               HttpSession hs=request.getSession(true);
               hs.setAttribute("unitname", ja);
+              if(ui.equals("issue"))
+              {
               response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformIssueInsert.jsp");
+              }
+              else
+              {
+                    response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformReturnInsert.jsp");
+              
+              }
           }
          
     }

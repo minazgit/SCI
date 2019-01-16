@@ -36,12 +36,61 @@ div.dataTables_wrapper {
               JSONArray arreno=(JSONArray)session.getAttribute("empno");
               JSONArray jcolumn=(JSONArray)session.getAttribute("column");
         %>
+               $("#submit").click(function(event){
+                   event.preventDefault();
+                   elen=$("#emplen").val();
+                   alen=$("#artlength").val();
+                 
+                    datav="[";
+               
+                   for(i=1;i<=parseInt(elen);i++)
+                   {  data="[";
+                      
+                      for(j=1;j<=parseInt(alen);j++)
+                      {   
+                           aobj=$(".a"+i)[j-1];
+                           
+                           txtval= $(aobj).val();
+                           
+                           if(txtval.length==0)
+                           {
+                               txtval="0";
+                           }
+                           data=data+txtval+",";
+                        
+                           
+                      }
+                       data=data.slice(0,data.length-1);
+                      datav=datav+data+"],";
+                   }
+                    datav=datav.slice(0,datav.length-1);
+                   datav=datav+"]";
+                 
+                   sp="[";
+                   alert(sp);
+                   spobj=$(".spp");
+                   alert(spobj.length);
+                   for(i=spobj.length/2;i<spobj.length;i++)
+                   {   spval=$(spobj[i]).val();
+                       alert(spval);
+                       if(spval.length==0)
+                       {
+                           spval="0";
+                       }
+                       sp=sp+spval+",";
+                   }
+                   sp=sp.slice(0,sp.length-1);
+                   sp=sp+"]";
+                   location.href="<%=application.getContextPath()%>/SerUniformIssuePerson?mes="+datav+"&sp="+sp;
+                   
+});
       $('#example').DataTable({
           "scrollY":500,
           "scrollX":true
           
       });
-      
+            
+
       
 //              
 //            });
@@ -141,6 +190,8 @@ div.dataTables_wrapper {
 
         <!-- /#left-panel -->
         <%@include file="leftpanel.jsp" %>
+        <input type="hidden" name="emplen" id="emplen" value="<%=arreno.length()%>"/>
+        <input type="hidden" name="artlength" id="artlength" value="<%=jcolumn.length()%>"/>
      
         <!-- Left Panel -->
 
@@ -185,6 +236,7 @@ div.dataTables_wrapper {
                                     </tr>
                                         </thead>
                 <tbody>
+                    
                     <% for(int i=0;i<arreno.length();i++)
                     {
                       JSONObject jo=arreno.getJSONObject(i);
@@ -192,12 +244,12 @@ div.dataTables_wrapper {
                    %>
                    <tr>
                     
-                       <td><%=String.valueOf(jo.get("empcode"))%></td>
+                       <td id="empno<%=(i+1)%>"><%=String.valueOf(jo.get("empcode"))%></td>
                         <td><%=(String) jo.get("firstname")%> <%=(String) jo.get("middlename")%>  <%=(String) jo.get("lastname")%></td>
                         <% for(int j=0;j<jcolumn.length();j++)
                     {
                    %> 
-                   <td><input style="width:60px;" type="text"/></td>
+                   <td><input class="a<%=(i+1)%>" style="width:60px;" type="text"/></td>
                 <%  }%>
                        
                 
@@ -210,7 +262,7 @@ div.dataTables_wrapper {
                                           <% for(int i=0;i<jcolumn.length();i++)
                                             {
                                            %> 
-                                          <th><input style="width:60px;" type="text"/></th>
+                                          <th><input class="spp" style="width:60px;" type="text"/></th>
                                         <%  }%>
                                           </tr>
                 </tfoot>

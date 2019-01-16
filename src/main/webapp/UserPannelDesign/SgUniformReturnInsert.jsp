@@ -1,3 +1,4 @@
+<%@page import="org.json.JSONArray"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -77,7 +78,7 @@ overflow-y: auto;
         }
     });
     data=data.trim();
-    alert(data);
+//    alert(data);
     location.href="<%=application.getContextPath()%>/SerUniformReturn?empno="+data+"&unit="+unit;
        }); 
         });
@@ -206,12 +207,21 @@ overflow-y: auto;
                                         <div class="row form-group">
                                             <div class="col col-md-3"><label for="select" class=" form-control-label">Unit</label></div>
                                             <div class="col-12 col-md-9">
+                                                <%
+                                                JSONArray ja=(JSONArray)session.getAttribute("unitname");
+                                                
+                                                %>
                                                 <select name="select" id="unit" class="form-control">
-                                                    <option value="0"> select item</option>
-                                                    <option value="1">Shirt cloth</option>
-                                                    <option value="1">Pent cloth</option>
-                                                    <option value="2">cap</option>
-                                                    <option value="3">shirt</option>
+                                                     <option value="0"> select item</option>
+                                                    <%
+                                                        for(int i=0;i<ja.length();i++)
+                                                        {
+                                                            String unitname=(String)ja.getString(i);
+                                                    %> 
+                                                   
+                                                    
+                                                    <option value="<%=unitname%>"><%=unitname%></option>
+                                                    <%}%>
                                                 </select>
                                             </div>
                                         </div>

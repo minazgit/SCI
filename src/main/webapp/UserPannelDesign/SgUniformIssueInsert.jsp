@@ -32,7 +32,7 @@ overflow-y: auto;
                      event.preventDefault();
                      
          var unit=$("#unit option:selected").text();
-         alert(unit);
+    //     alert(unit);
 //          if ( $.fn.dataTable.isDataTable( '#example' ) )
 //
 //                        {
@@ -64,7 +64,7 @@ overflow-y: auto;
          'orderable': false,
          'className': 'dt-body-center',
          'render': function (data, type, full, meta){
-             alert(data);
+      //       alert(data);
              alert($('<div/>').text(data));
              return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html().toString() + '">';
         
@@ -92,7 +92,7 @@ overflow-y: auto;
         }
     });
     data=data.trim();
-    alert(data);
+  //  alert(data);
     location.href="<%=application.getContextPath()%>/SerUniformIssue?empno="+data+"&unit="+unit;
        }); 
         });
