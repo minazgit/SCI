@@ -32,16 +32,16 @@ overflow-y: auto;
                      event.preventDefault();
                      
          var unit=$("#unit option:selected").text();
-         alert(unit);
-//          if ( $.fn.dataTable.isDataTable( '#example' ) )
-//
-//                        {
-//
-//                            table = $('#example').DataTable();
-//                            
-//                            table.destroy();
-//                            
-//                        } 
+        
+          if ( $.fn.dataTable.isDataTable( '#example' ) )
+
+                        {
+
+                            table = $('#example').DataTable();
+                            
+                            table.destroy();
+                            
+                        } 
     var   table=$('#example').DataTable( {
         "ajax": {"url":"<%=application.getContextPath()%>/SerUniformIssue?op=unit",
         "data":{
@@ -64,8 +64,7 @@ overflow-y: auto;
          'orderable': false,
          'className': 'dt-body-center',
          'render': function (data, type, full, meta){
-             alert(data);
-             alert($('<div/>').text(data));
+            
              return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html().toString() + '">';
         
     }
@@ -93,7 +92,7 @@ overflow-y: auto;
     });
     data=data.trim();
     alert(data);
-    location.href="<%=application.getContextPath()%>/SerUniformIssue?empno="+data+"&unit="+unit;
+    location.href="<%=application.getContextPath()%>/SerUniformIssue?empno="+data+"&unit="+unit+"&op=unit";
        }); 
         });
      });
