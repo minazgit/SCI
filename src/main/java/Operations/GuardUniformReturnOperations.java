@@ -9,7 +9,7 @@ import javax.servlet.ServletContext;
 import models.ItemMaster;
 import models.Securityguard;
  
-
+import models.*;
 public class GuardUniformReturnOperations {
     
     ServletContext ctx;
@@ -22,7 +22,7 @@ public class GuardUniformReturnOperations {
         this.ctx = ctx;
     }
     
-    public String insertUniformReturn(GuardUniformReturn grobj) {
+  /*  public String insertUniformReturn(GuardUniformReturn grobj) {
         
         String msg = "";
         try {
@@ -129,5 +129,5 @@ public class GuardUniformReturnOperations {
             return "error";
         }
     }
-    
+ */   
 }

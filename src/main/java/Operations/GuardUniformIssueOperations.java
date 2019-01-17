@@ -122,7 +122,7 @@ public class GuardUniformIssueOperations {
         return msg;
     }
     
-    public ArrayList<GuardUniformIssue> getItemInwardDetails() {
+  /*  public ArrayList<GuardUniformIssue> getItemInwardDetails() {
         
         ArrayList<GuardUniformIssue> issueDetails = new ArrayList<GuardUniformIssue>();
         try {
@@ -183,7 +183,7 @@ public class GuardUniformIssueOperations {
         return msg;
     }
     
-    public String changeIssueDetails(GuardUniformIssue sgobj) {
+   public String changeIssueDetails(GuardUniformIssue sgobj) {
         
         try {
             
@@ -198,5 +198,5 @@ public class GuardUniformIssueOperations {
             return "error";
         }
     }
-    
+    */
 }

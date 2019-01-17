@@ -63,6 +63,10 @@
         <servlet-name>NewServlett</servlet-name>
         <servlet-class>businesslayer.NewServlett</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SerUniformReturnPerson</servlet-name>
+        <servlet-class>businesslayer.SerUniformReturnPerson</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -106,6 +110,10 @@
     <servlet-mapping>
         <servlet-name>NewServlett</servlet-name>
         <url-pattern>/NewServlett</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SerUniformReturnPerson</servlet-name>
+        <url-pattern>/SerUniformReturnPerson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
