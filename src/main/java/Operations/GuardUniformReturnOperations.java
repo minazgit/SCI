@@ -21,7 +21,76 @@ public class GuardUniformReturnOperations {
     public GuardUniformReturnOperations(ServletContext ctx) {
         this.ctx = ctx;
     }
-    
+     public String insertUniformReturnMaster(GuardReturnMaster iobj) {
+        
+        String msg = "";
+        String item_index=null;
+         PreparedStatement pstmt=null;
+        String sql="insert into guard_return_master( return_date, empcode) values(?,?)";       
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            if (con != null) {
+                stmt = con.createStatement();
+      
+                   if (iobj != null) {
+                  pstmt=con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+                   pstmt.setDate(1,new java.sql.Date(iobj.getReturnDate().getTime()));
+                   pstmt.setInt(2,iobj.getSecurityguard().getEmpcode().intValue());
+                pstmt.executeUpdate();
+                   // stmt.executeUpdate("insert into item_inward_master(date, bill_no, pid) values(" + iobj.getDate() + "," + iobj.getBillNo() + "," + iobj.getPersonMaster().getPid() + ")",Statement.RETURN_GENERATED_KEYS);
+                    ResultSet rs = pstmt.getGeneratedKeys();
+                    while (rs.next()) {
+                     item_index = rs.getString(1);
+                    }
+                   // stmt.executeUpdate("insert into guard_issue_master( issue_date, empcode) values(" + iobj.getIssueDate() + "," + iobj.getSecurityguard().getEmpcode() + "," + iobj.getItemMaster().getItemid() + "," + iobj.getQty() + ",'" + iobj.getRemark() + "'," + iobj.getItemInwards().getInwardindex() + ",)");
+                    
+                    msg = "success";
+                    
+                } else {
+                    msg = "error";
+                }
+            } else {
+                msg = "error";
+            }
+            stmt.close();
+            
+        } catch (Exception e) {
+            msg = "error";
+            System.out.println(e.getMessage());
+        }
+        
+        return item_index;
+      }
+     
+      public String insertUniformMasterDetail(GuardReturnDetail pobj) {
+
+        String msg = "";
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            if (con != null) {
+                stmt = con.createStatement();
+
+                if (pobj != null) {
+
+                   stmt.executeUpdate("insert into guard_return_detail(itemid, qty,remark,return_index) values('" + pobj.getItemMaster().getItemid() + "','" + pobj.getQty() + "'," + " " + ",'"+pobj.getGuardReturnMaster().getReturnIndex()+"')");
+         
+                   
+
+                } else {
+                    msg = "error";
+                }
+            } else {
+                msg = "error";
+            }
+            stmt.close();
+
+        } catch (Exception e) {
+            msg = "error";
+            System.out.println(e.getMessage());
+        }
+
+        return msg;
+    }
   /*  public String insertUniformReturn(GuardUniformReturn grobj) {
         
         String msg = "";
