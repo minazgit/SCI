@@ -7,6 +7,7 @@
 package businesslayer;
 
 import Operations.GuardUniformIssueOperations;
+import Operations.GuardUniformReturnOperations;
 import Operations.ItemMasterOperations;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.GuardIssueDetail;
 import models.GuardIssueMaster;
+import models.GuardReturnDetail;
+import models.GuardReturnMaster;
+import models.ItemMaster;
 import models.Securityguard;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +55,7 @@ System.out.println("hiii");
        System.out.println("hello");
            GuardIssueMaster gim=new GuardIssueMaster();
           
-           GuardUniformIssueOperations guio=new GuardUniformIssueOperations(scx);
+           GuardUniformReturnOperations guio=new GuardUniformReturnOperations(scx);
       HttpSession session=request.getSession(true);
       JSONArray arreno=(JSONArray)session.getAttribute("empno");
            System.out.println("++++");
@@ -80,7 +84,14 @@ System.out.println("hiii");
                    JSONObject objempno=(JSONObject)arreno.get(i);
                   
                    String empno=objempno.getString("empcode");
-                  
+                   GuardReturnMaster grm=new GuardReturnMaster();
+                   grm.setReturnDate(date);
+                   Securityguard sg=new Securityguard();
+                   sg.setEmpcode(Long.parseLong(empno));
+                   grm.setSecurityguard(sg);
+                 String index=  guio.insertUniformReturnMaster(grm);
+                    grm.setReturnIndex(Long.parseLong(index));
+                   
                     
                           jamesdet=james.getJSONArray(i);
                    for(int j=0;j<jcolumn.length();j++)
@@ -91,7 +102,17 @@ System.out.println("hiii");
                            int itemid=imo.getItemId(jcolumn.getString(j));
                            
                            out.println(dt+"  "+empno+" "+itemid+" "+jamesdet.getString(j)+" ");
-                        
+                           GuardReturnDetail grd=new GuardReturnDetail();
+                           
+                          
+                           ItemMaster im =new ItemMaster();
+                           im.setItemid(itemid);
+                           grd.setItemMaster(im);
+                           grd.setQty(Integer.parseInt(jamesdet.getString(j)));
+                           grd.setGuardReturnMaster(grm);
+                           
+                           guio.insertUniformMasterDetail(grd);
+                           
                         
                         
                        }
