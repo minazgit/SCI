@@ -5,6 +5,7 @@
  */
 package businesslayer;
 
+import Operations.ItemInwardOperations;
 import Operations.ItemMasterOperations;
 import Operations.ItemOutwardOperations;
 import Operations.PersonMasterOperations;
@@ -62,7 +63,14 @@ public class SerItemOutwards extends HttpServlet {
             hs.setAttribute("nid1", fullnamelist);
 
             response.sendRedirect(scx.getContextPath() + "/UserPannelDesign/ItemOutwardsInsert.jsp");
-        } else if (op.equals("ins")) {
+        }
+         else if(op.equals("pn2")){
+            ItemOutwardOperations iio=new ItemOutwardOperations(scx);
+            JSONArray getitem =iio.getItemOutwardDetailsView();
+              HttpSession hs= request.getSession(true);
+              hs.setAttribute("getoutward",getitem);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/ItemOutwardsView.jsp");
+        }else if (op.equals("ins")) {
             System.out.println("-----");
             String pid = request.getParameter("personid");
             String ptype = request.getParameter("persontype");

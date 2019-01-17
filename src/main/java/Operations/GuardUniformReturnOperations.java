@@ -72,7 +72,7 @@ public class GuardUniformReturnOperations {
 
                 if (pobj != null) {
 
-                   stmt.executeUpdate("insert into guard_return_detail(itemid, qty,remark,return_index) values('" + pobj.getItemMaster().getItemid() + "','" + pobj.getQty() + "'," + " " + ",'"+pobj.getGuardReturnMaster().getReturnIndex()+"')");
+                   stmt.executeUpdate("insert into guard_return_detail(itemid, qty,remark,return_index) values('" + pobj.getItemMaster().getItemid() + "','" + pobj.getQty() + "'," + "remark " + ",'"+pobj.getGuardReturnMaster().getReturnIndex().intValue()+"')");
          
                    
 

@@ -9,6 +9,7 @@ import models.ItemInwardDetails;
 import models.ItemOutwardDetails;
 import models.ItemOutwardMaster;
 import models.ItemOutwards;
+import org.json.JSONArray;
 
 public class ItemOutwardOperations {
 
@@ -82,10 +83,12 @@ public class ItemOutwardOperations {
                                 bal_sum = bal_sum - qtn;
                                 System.out.println("-109-" + bal_sum);
                                 stmt.executeUpdate("update item_inward_details set balance=" + bal_sum + " where itemid=" + rsbal.getInt(4) + " and inward_detail_index=" + rsbal.getInt(5) + "");
-                               stmt.executeUpdate("insert into item_outward_details(outward_master_index,itemid,qty,selling_price) values(" + Integer.parseInt(index) + "," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getSellingPrice() + ")");
+                                System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                               stmt.executeUpdate("insert into item_outward_details(inward_index,outward_master_index,itemid,qty,selling_price) values(" + Integer.parseInt(index) + ","+item_index+"," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getSellingPrice() + ")");
                                 break;
                             }
                         }
+                        //select itm.outward_master_index,itm.date,itm.pid,itm.remark,iid.itemid,iid.qty,iid.selling_price,iid.inward_index FROM `item_outward_master`itm inner join item_outward_details iid on itm.outward_master_index=iid.outward_master_index
                          //stmt.executeUpdate("insert into item_outward_details(outward_master_index,itemid,qty,selling_price) values(" + item_index + "," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getSellingPrice() + ")");
                                
                     }
@@ -220,5 +223,45 @@ public class ItemOutwardOperations {
             return "error";
         }
     }
+     public JSONArray getItemOutwardDetailsView() {
+
+       JSONArray ja=new JSONArray();
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+            rs = stmt.executeQuery("select itm.outward_master_index,date,pid,remark,itemid,qty,selling_price,inward_index FROM item_outward_master itm inner join item_outward_details iid on itm.outward_master_index=iid.outward_master_index");
+
+            while (rs.next()) {
+               JSONArray je=new JSONArray();
+
+                long outward_index = rs.getLong(1);
+                String inward_date = rs.getString(2);  
+                int pid = rs.getInt(3);
+                 String remark = rs.getString(4);
+                 int itemid = rs.getInt(5);
+                 //double purchaseprice=rs.getDouble(6);
+                int qty = rs.getInt(6);
+                Double sell_price = rs.getDouble(7);
+                int inward_index=rs.getInt(8);
+                je.put(outward_index+"");
+                je.put(inward_date);
+                je.put(pid+"");
+                je.put(remark+"");
+                je.put(itemid+"");
+                je.put(qty+"");
+                je.put(sell_price+"");
+                je.put(inward_index);
+               ja.put(je);
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ja;
+    }
+
 
 }

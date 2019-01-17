@@ -7,6 +7,7 @@
 package businesslayer;
 
 import Operations.GuardUniformIssueOperations;
+import Operations.ItemOutwardOperations;
 import Operations.SecurityGuardMasterOperations;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,13 +49,14 @@ System.out.println("hiii");
        String a=request.getParameter("empno");
       String unit= request.getParameter("unit");
       String op=request.getParameter("op");
-       System.out.println(unit);
+       System.out.println(op);
                System.out.println("----"+a);
-       StringTokenizer st=new StringTokenizer(a);
-       JSONArray ja=new JSONArray();
+       
        
        if(op.equals("unit"))
        {
+           StringTokenizer st=new StringTokenizer(a);
+       JSONArray ja=new JSONArray();
        while(st.hasMoreTokens())
        {
             JSONObject jno=new JSONObject();
@@ -76,6 +78,16 @@ System.out.println("hiii");
        response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/UniformIssuePerson.jsp");
            
            }
+       else if(op.equals("get"))
+       {
+           System.out.println("-----");
+           GuardUniformIssueOperations iio=new GuardUniformIssueOperations(scx);
+            JSONArray getitem =iio.getGuardIssueView();
+              HttpSession hs= request.getSession(true);
+              hs.setAttribute("getoutward",getitem);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformIssueView.jsp");
+    
+       }
            }catch(Exception e)
            {
                System.out.println(e.getMessage());

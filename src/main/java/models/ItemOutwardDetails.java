@@ -14,7 +14,7 @@ public class ItemOutwardDetails  implements java.io.Serializable {
      private ItemOutwardMaster itemOutwardMaster;
      private int qty;
      private Double sellingPrice;
-
+ private ItemInwardDetails iteminwarddetails;
     public ItemOutwardDetails() {
     }
 
@@ -23,11 +23,12 @@ public class ItemOutwardDetails  implements java.io.Serializable {
         this.itemMaster = itemMaster;
         this.qty = qty;
     }
-    public ItemOutwardDetails(ItemMaster itemMaster, ItemOutwardMaster itemOutwardMaster, int qty, Double sellingPrice) {
+    public ItemOutwardDetails(ItemMaster itemMaster, ItemOutwardMaster itemOutwardMaster, int qty, Double sellingPrice,ItemInwardDetails iteminwarddetails) {
        this.itemMaster = itemMaster;
        this.itemOutwardMaster = itemOutwardMaster;
        this.qty = qty;
        this.sellingPrice = sellingPrice;
+       this.iteminwarddetails=iteminwarddetails;
     }
    
     public Long getOutwardDetailIndex() {
@@ -66,7 +67,13 @@ public class ItemOutwardDetails  implements java.io.Serializable {
         this.sellingPrice = sellingPrice;
     }
 
+    public ItemInwardDetails getIteminwarddetails() {
+        return iteminwarddetails;
+    }
 
+    public void setIteminwarddetails(ItemInwardDetails iteminwarddetails) {
+        this.iteminwarddetails = iteminwarddetails;
+    }
 
 
 }

@@ -1,3 +1,4 @@
+<%@page import="org.json.JSONArray"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -34,59 +35,37 @@
                                     <strong class="card-title">Item-outwards Details</strong>
                                 </div>
                                 <div class="card-body">
-                                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Index</th>
-                                                <th>Inward-Index</th>
-                                                 <th>Item</th>
-                                                <th>Date</th>
-                                                <th>Unit/Qty</th>
-                                                <th>Person</th>                                               
-                                                <th>Remark</th>                                                
+                                                <th>Outward Index</th>
+                                                 <th>Date</th>
+                                                <th>pid</th>
+                                                <th>remark</th>
+                                                <th>Item Id</th>                                               
+                                                <th>Qty</th>
+                                                <th>Selling Price</th>
+                                                <th>inward_index</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>shirt-cloth</td>
-                                                <td>01/12/18</td>
-                                                <td>40</td>
-                                                <td>Hitesh</td>                                              
-                                                <td>-</td>
-                                                                                                                                          
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td>shirt-cloth</td>
-                                                <td>05/12/18</td>
-                                                <td>40</td>
-                                                <td>Hitesh</td>                                              
-                                                <td>nfgtor</td>
-                                                                                                                                          
-                                            </tr>
-                                           <tr>
-                                                <td>3</td>
-                                                 <td>11</td>
-                                                <td>pent</td>
-                                                <td>11/12/18</td>
-                                                <td>100</td>
-                                                <td>Tushar(remote)</td>                                              
-                                                <td>non-returnable</td>
-                                                                                                                                          
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                 <td>12</td>
-                                                <td>Shirt</td>
-                                                <td>11/12/18</td>
-                                                <td>100</td>
-                                                <td>Tushar(remote)</td>                                              
-                                                <td>non-returnable</td>
-                                                                                                                                          
-                                            </tr>
+                                          <%
+                          JSONArray getinward = (JSONArray)session.getAttribute("getoutward");
+                                                               for(int i=0;i<getinward.length();i++){
+                                                               JSONArray im=(JSONArray)getinward.get(i);
+                                                               
+                            %>
+                            <tr>
+                                <td><%=im.get(0)%></td>
+                                <td><%=im.get(1)%></td>
+                                <td><%=im.get(2)%></td>
+                                <td><%=im.get(3)%></td>
+                                <td><%=im.get(4)%></td>
+                                <td><%=im.get(5)%></td>
+                                <td><%=im.get(6)%></td>
+                                <td><%=im.get(7)%></td>
+                            </tr>
+                            <%  } %>
                                         </tbody>
                                     </table>
                                 </div>
