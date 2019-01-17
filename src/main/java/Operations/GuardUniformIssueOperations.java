@@ -8,6 +8,7 @@ import models.GuardIssueMaster;
 import models.ItemInwards;
 import models.ItemMaster;
 import models.Securityguard;
+import org.json.JSONArray;
 
 public class GuardUniformIssueOperations {
     
@@ -122,6 +123,47 @@ public class GuardUniformIssueOperations {
         return msg;
     }
     
+      public JSONArray getGuardIssueView() {
+
+       JSONArray ja=new JSONArray();
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+          ResultSet  rs = stmt.executeQuery("select itm.issue_index,issue_date,empcode,itemid,qty,remark,selling_price,inward_index FROM guard_issue_master itm inner join guard_issue_detail iid on itm.issue_index=iid.issue_index;");
+
+            while (rs.next()) {
+               JSONArray je=new JSONArray();
+
+                int issue_index = rs.getInt(1);
+                String inward_date = rs.getString(2);  
+                int empcode = rs.getInt(3);
+                 //String remark = rs.getString(4);
+                 int itemid = rs.getInt(4);
+                 String qty=rs.getString(5);
+                 String remark=rs.getString(6);
+                 
+                 double sellingprice=rs.getDouble(7);
+                 int inward_index=rs.getInt(8);
+               
+                je.put(issue_index+"");
+                je.put(inward_date);
+                je.put(empcode+"");
+                je.put(itemid+"");
+                je.put(qty+"");
+                je.put(remark+"");
+                je.put(sellingprice+"");
+                je.put(inward_index);
+               ja.put(je);
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ja;
+    }
   /*  public ArrayList<GuardUniformIssue> getItemInwardDetails() {
         
         ArrayList<GuardUniformIssue> issueDetails = new ArrayList<GuardUniformIssue>();
