@@ -91,7 +91,7 @@ System.out.println("hiii");
           }
           else if(op.equals("unitname")){
               String ui=request.getParameter("ui");
-              SecurityGuardMasterOperations scg=new SecurityGuardMasterOperations(scx);
+             // SecurityGuardMasterOperations scg=new SecurityGuardMasterOperations(scx);
               JSONArray ja= scg.getUnitName();
               HttpSession hs=request.getSession(true);
               hs.setAttribute("unitname", ja);
