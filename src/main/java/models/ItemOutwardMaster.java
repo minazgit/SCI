@@ -1,3 +1,4 @@
+
 package models;
 // Generated Jan 10, 2019 3:43:57 PM by Hibernate Tools 3.6.0
 
@@ -99,5 +100,6 @@ public class ItemOutwardMaster  implements java.io.Serializable {
 
    
 }
+
 
 

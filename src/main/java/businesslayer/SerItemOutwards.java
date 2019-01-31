@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -175,6 +176,7 @@ public class SerItemOutwards extends HttpServlet {
             }
             // SELECT date,pid,balance,itemid from sci_security.item_inward_master im inner join sci_security.item_inward_details id on im.inward_index=id.inward_master_index where pid=9 and itemid=19 and balance !=0 order by date asc;
         }
+
          else if(op.equals("geti")){
              System.out.println("-----");
             ItemOutwardOperations iio=new ItemOutwardOperations(scx);
@@ -194,4 +196,5 @@ public class SerItemOutwards extends HttpServlet {
             }
          }
     }
+
 }
