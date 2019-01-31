@@ -7,10 +7,10 @@
     <head>
 
         <%@include file="headerfiles.jsp" %>
- <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
+ <!--<link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">-->
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
-<script src="assets/js/mycontrol.js"></script>
+<!--<script src="assets/js/mycontrol.js"></script>-->
       <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
       <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -93,7 +93,7 @@
                                    </form>
                                 </div>
                                 <div id="tab" class="card-body">
-                                     <table id="example" class="display" style="width:100%">   <thead>
+                                     <table id="example" class="display" style="width:100%">  
                                           
                                          <thead>
                                              <tr>

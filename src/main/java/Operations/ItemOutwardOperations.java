@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
+import static javax.persistence.metamodel.PluralAttribute.CollectionType.MAP;
 import javax.servlet.ServletContext;
 import models.ItemInwardDetails;
 import models.ItemMaster;
@@ -11,6 +12,7 @@ import models.ItemOutwardDetails;
 import models.ItemOutwardMaster;
 import models.ItemOutwards;
 import org.json.JSONArray;
+import java.util.Map;
 import org.json.JSONObject;
 
 public class ItemOutwardOperations {
@@ -456,7 +458,8 @@ int qty=0;
             con = (Connection) ctx.getAttribute("con");
             stmt = con.createStatement();
             System.out.println("from");
-             rs = stmt.executeQuery("SELECT pid,date,payment,itemid,qty,selling_price FROM item_outward_master iim inner join item_outward_details iid on iim.outward_master_index=iid.outward_master_index and iim.date between '"+from+"' and '"+till+"'");
+            String d;
+             rs = stmt.executeQuery("SELECT pid,date,payment,count(itemid),sum(qty),sum(selling_price*qty) FROM item_outward_master iim inner join item_outward_details iid on iim.outward_master_index=iid.outward_master_index and iim.date between '"+from+"' and '"+till+"' group by date");
             while (rs.next()) {
                JSONObject jo=new JSONObject();
 
@@ -469,19 +472,69 @@ int qty=0;
                  int qty=rs.getInt(5);
                  int selling_price=rs.getInt(6);
                  
+                 
+                 
               PersonMasterOperations pmo=new PersonMasterOperations(ctx);
               String person_name=pmo.getPersonName(pid);
-               
+               String unit=pmo.getPersonUnit(pid);
+                System.out.println("unit name= "+unit);
               ItemMasterOperations imo=new ItemMasterOperations(ctx);
-             String Itemname= imo.getItemName(itemid);
+           //  String Itemname= imo.getItemName(itemid);
                 //String remark = rs.getString(8);
                 jo.put("person_name",person_name);
                 jo.put("date", date);
                 jo.put("payment",payment);
-                jo.put("item_name",Itemname);
+                //jo.put("item_name",itemid);
                 jo.put("qty",qty);
                 jo.put("selling_price",selling_price);
-                //je.put(remark);
+               jo.put("unit",unit);
+               ja.put(jo);
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ja;
+    }
+    public JSONArray getItemOutwardDetailsExcel(String from, String till) {
+
+       JSONArray ja=new JSONArray();
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+            System.out.println("from");
+            String d;
+             rs = stmt.executeQuery("SELECT pid,date,payment,count(itemid),sum(qty),sum(selling_price*qty) FROM item_outward_master iim inner join item_outward_details iid on iim.outward_master_index=iid.outward_master_index and iim.date between '"+from+"' and '"+till+"' group by date");
+            while (rs.next()) {
+               JSONObject jo=new JSONObject();
+
+                int pid = rs.getInt(1);
+                System.out.println("---"+pid);
+                String date = rs.getString(2);  
+                String payment = rs.getString(3);
+                 
+                 int itemid = rs.getInt(4);
+                 int qty=rs.getInt(5);
+                 int selling_price=rs.getInt(6);
+                 
+                 
+                 
+              PersonMasterOperations pmo=new PersonMasterOperations(ctx);
+              String person_name=pmo.getPersonName(pid);
+               String unit=pmo.getPersonUnit(pid);
+                System.out.println("unit name= "+unit);
+              ItemMasterOperations imo=new ItemMasterOperations(ctx);
+           //  String Itemname= imo.getItemName(itemid);
+                //String remark = rs.getString(8);
+                jo.put("person_name",person_name);
+                jo.put("date", date);
+                jo.put("payment",payment);
+                //jo.put("item_name",itemid);
+                jo.put("qty",qty);
+                jo.put("selling_price",selling_price);
+               jo.put("unit",unit);
                ja.put(jo);
             }
             

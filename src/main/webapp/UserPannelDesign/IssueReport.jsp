@@ -7,10 +7,22 @@
     <head>
 
         <%@include file="headerfiles.jsp" %>
- <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
-        <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
-<script src="assets/js/mycontrol.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
+         <script type = "text/javascript" 
+                 src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+     
+      </script>
+<!--      <style>
+          .table-wrapper-scroll-y {
+display: block;
+max-height: 200px;
+overflow-y: auto;
+-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+          
+      </style>-->
+      <script src="assets/js/mycontrol.js"></script>
       <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
       <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,14 +32,24 @@
            
       //  alert("hello");
         
-        $("#tab").hide();
+        $("#example").hide();
+        $("#excel").hide();
+        $("#excel").click(function(){
+             from=$("#from").val();
+            till=$("#till").val();
+            alert(from);
+            alert(till);
+             location.href="<%=application.getContextPath()%>/ExcelSheet?from="+from+"&till="+till+"";
+   
+        } );
         $("#submit").click(function(){
             
             from=$("#from").val();
             till=$("#till").val();
             alert(from);
             alert(till);
-            $("#tab").show();
+            $("#example").show();
+            $("#excel").show();
                if ( $.fn.dataTable.isDataTable( '#example' ) )
 
                         {
@@ -50,9 +72,9 @@
             { "data": "person_name" },
             { "data": "date" },
             { "data": "payment" },
-            { "data": "item_name" },
-             { "data": "qty" },
-              { "data": "selling_price" }
+            { "data": "qty" },
+             { "data": "selling_price" },
+              { "data": "unit" }
         ]
     
                 });
@@ -92,17 +114,17 @@
                                  Till:  <input type="date" id="till" /><br>  
                                    </form>
                                 </div>
-                                <div id="tab" class="card-body">
-                                     <table id="example" class="display" style="width:100%">   <thead>
+                                <!--<div id="tab" class="card-body">-->
+                                     <table id="example" class="display" style="width:100%">   
                                           
                                          <thead>
                                              <tr>
                                                 <th>person_name</th>
                                                  <th>Date</th>
                                                 <th>payment</th>
-                                                <th>item_name</th>
-                                                <th>qty</th>                                               
-                                                <th>selling_Price</th>
+                                                <th>Total no. of items</th>
+                                                <th>Total amount</th>                                               
+                                                <th>Name of Unit</th>
                                                
                                                 <!--<th>Remark</th>-->
                                             </tr>
@@ -110,12 +132,16 @@
                                         
                                      </table>
                                 
-                                </div>
+                                <!--</div>-->
                                 <div class="card-footer">
                                     <button type="submit" id="submit" class="btn btn-primary btn-sm">
                                         <i class="fa fa-dot-circle-o"></i> Submit
                                     </button>
-
+                                    
+                                    <button type="submit" id="excel"  class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Create Excel
+                                    </button>
+                                        
                                 </div>
                                 
                             </div>
