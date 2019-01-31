@@ -309,4 +309,26 @@ pobj.setBaddress(baddress);
         return fullname;
     }
 
+     public String getPersonUnit(int id) {
+      String unit=null;
+        try {
+
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+            rs = stmt.executeQuery("select business_addr from person_master where pid="+id+"");
+
+            while (rs.next()) {
+                
+               unit=rs.getString(1);
+                System.out.println("----"+unit);
+                
+            }
+
+        } catch (Exception e) {
+            
+            System.out.println(e.getMessage());
+        }
+        return unit;
+    }
 }
