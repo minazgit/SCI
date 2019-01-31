@@ -1,3 +1,4 @@
+
 package Operations;
 
 import java.sql.*;
@@ -27,14 +28,14 @@ public class ItemOutwardOperations {
         this.ctx = ctx;
     }
 
-    public String insertItemOutward(ItemOutwardMaster iobj) {
+ public String insertItemOutward(ItemOutwardMaster iobj) {
 
         String msg = "";
         PreparedStatement pstmt = null;
         String item_index = "";
         String x = "";
         Statement stmtbal = null;
-        String sql = "insert into item_outward_master(date, pid,payment) values(?,?,?)";
+        String sql = "insert into item_outward_master(date, pid,payment,cash_amount,credit_amount) values(?,?,?,?,?)";
         try {
             con = (Connection) ctx.getAttribute("con");
             stmtbal = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -48,6 +49,8 @@ public class ItemOutwardOperations {
                     pstmt.setDate(1, new java.sql.Date(iobj.getDate().getTime()));
                     pstmt.setInt(2, iobj.getPersonMaster().getPid());
                     pstmt.setString(3, iobj.getPayment());
+                    pstmt.setDouble(4, iobj.getCash_amount());
+                    pstmt.setDouble(5, iobj.getCredit_amount());
                     pstmt.executeUpdate();
                     ResultSet rs = pstmt.getGeneratedKeys();
                     System.out.println("45");
@@ -113,7 +116,7 @@ public class ItemOutwardOperations {
 
         return item_index;
     }
-
+  
     public String updatebalance(int pid, int itemid, long qtn) {
         String x = "";
         Statement stmtbal = null;

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -94,6 +95,7 @@ public class SerItemOutwards extends HttpServlet {
             //String remark = request.getParameter("remark");
             String json = request.getParameter("json");
             String payment=request.getParameter("payment");
+            Double amount=Double.parseDouble(request.getParameter("rupees"));
            // String index = request.getParameter("index");
             System.out.println(pid);
             System.out.println(json);
@@ -119,6 +121,21 @@ public class SerItemOutwards extends HttpServlet {
                 pm.setPid(Integer.parseInt(pid));
                 iom.setPersonMaster(pm);  //
                  iom.setPayment(payment);
+                 if(payment.equals("Cash"))
+                 {
+                     iom.setCash_amount(amount);
+                     iom.setCredit_amount(0.0);
+                 }
+                 else if(payment.equals("Credit"))
+                 {
+                     iom.setCredit_amount(amount);
+                     iom.setCash_amount(0.0);
+                 }
+                 else
+                 {
+                     iom.setCash_amount(amount);
+                     iom.setCredit_amount(amount);
+                 }
                 Set<ItemOutwardDetails> st = new HashSet<ItemOutwardDetails>();
 
                 for (int i = 0; i < jsonarray.length(); i++) {
@@ -159,6 +176,7 @@ public class SerItemOutwards extends HttpServlet {
             }
             // SELECT date,pid,balance,itemid from sci_security.item_inward_master im inner join sci_security.item_inward_details id on im.inward_index=id.inward_master_index where pid=9 and itemid=19 and balance !=0 order by date asc;
         }
+
          else if(op.equals("geti")){
              System.out.println("-----");
             ItemOutwardOperations iio=new ItemOutwardOperations(scx);
@@ -178,4 +196,5 @@ public class SerItemOutwards extends HttpServlet {
             }
          }
     }
+
 }
