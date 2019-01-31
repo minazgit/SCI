@@ -10,6 +10,7 @@ import models.ItemMaster;
 import models.Securityguard;
  
 import models.*;
+import org.json.JSONArray;
 public class GuardUniformReturnOperations {
     
     ServletContext ctx;
@@ -90,6 +91,46 @@ public class GuardUniformReturnOperations {
         }
 
         return msg;
+    }
+      
+      public JSONArray getGuardReturnView() {
+
+       JSONArray ja=new JSONArray();
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+          ResultSet  rs = stmt.executeQuery("select iid.return_index,return_date,empcode,itemid,qty,remark FROM guard_return_master itm inner join guard_return_detail iid on itm.return_index=iid.return_index");
+
+            while (rs.next()) {
+               JSONArray je=new JSONArray();
+
+                int return_index = rs.getInt(1);
+                String return_date = rs.getString(2);  
+                int empcode = rs.getInt(3);
+                 //String remark = rs.getString(4);
+                 int itemid = rs.getInt(4);
+                 String qty=rs.getString(5);
+                 String remark=rs.getString(6);
+                 
+                 
+               
+                je.put(return_index+"");
+                je.put(return_date);
+                je.put(empcode+"");
+                je.put(itemid+"");
+                je.put(qty+"");
+                je.put(remark+"");
+               
+               ja.put(je);
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ja;
     }
   /*  public String insertUniformReturn(GuardUniformReturn grobj) {
         

@@ -121,6 +121,7 @@ System.out.println("hiii");
                    
               
         } 
+            response.sendRedirect(scx.getContextPath()+"/SerUniformReturn?op=get");
            
         }  catch (JSONException ex) {
             System.out.println("63--"+ex.getMessage());

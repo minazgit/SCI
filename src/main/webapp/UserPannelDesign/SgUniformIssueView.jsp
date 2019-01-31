@@ -43,7 +43,7 @@
                                                 <th>empcode</th>
                                                 <th>Item id</th>
                                                 <th>Qty</th>                                               
-                                                <th>Remark</th>
+                                                <!--<th>Remark</th>-->
                                                 <th>Selling Price</th>
                                                 <th>inward_index</th>
                                             </tr>
@@ -61,7 +61,7 @@
                                 <td><%=im.get(2)%></td>
                                 <td><%=im.get(3)%></td>
                                 <td><%=im.get(4)%></td>
-                                <td><%=im.get(5)%></td>
+                                <!--<td><%=im.get(5)%></td>-->
                                 <td><%=im.get(6)%></td>
                                 <td><%=im.get(7)%></td>
                             </tr>

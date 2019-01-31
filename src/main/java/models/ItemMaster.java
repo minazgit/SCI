@@ -20,15 +20,16 @@ public class ItemMaster  implements java.io.Serializable {
      private Set guardUniformIssues = new HashSet(0);
      private Set guardUniformReturns = new HashSet(0);
      private Set itemOutwardses = new HashSet(0);
-
+     private String reorder ;
     public ItemMaster() {
     }
 
 	
-    public ItemMaster(String itemname, String itemCategory, String subCategory) {
+    public ItemMaster(String itemname, String itemCategory, String subCategory,String reorder) {
         this.itemname = itemname;
         this.itemCategory = itemCategory;
         this.subCategory = subCategory;
+        this.reorder=reorder;
     }
     public ItemMaster(String itemname, String itemCategory, String subCategory, Set itemInwardses, Set personMasters, Set guardUniformIssues, Set guardUniformReturns, Set itemOutwardses) {
        this.itemname = itemname;
@@ -103,6 +104,14 @@ public class ItemMaster  implements java.io.Serializable {
     
     public void setItemOutwardses(Set itemOutwardses) {
         this.itemOutwardses = itemOutwardses;
+    }
+
+    public String getReorder() {
+        return reorder;
+    }
+
+    public void setReorder(String reorder) {
+        this.reorder = reorder;
     }
 
 

@@ -19,12 +19,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script>
            $(document).ready(function(){
-               alert("hello");
+               $("#pay").hide();
+               //alert("hello");
                  $("#select").change(function(event){
                      event.preventDefault();
                      var   persontype=$("#select option:selected").val();
          var type=$("#select option:selected").val();
-         alert(persontype);
+         //alert(persontype);
+         
+         if(persontype ==="Remote Person" || persontype==="Reference Person")
+         {
+             $("#pay").show();
+         }
+          if(persontype ==="Tailor")
+         {
+             $("#pay").hide();
+         }
           var person=$("#select option:selected").attr('id');
          $("#d1").remove();
         ItemOutward(type,person);
@@ -35,7 +45,14 @@
                      var person=$("#select option:selected").attr('id');
                       date=$("#date").val();
                     remark=$("#remark").val();
-                    index=$("#index").val();
+                   // index=$("#index").val();
+                    payment=$('input[name=payment]:checked').val();
+                    
+                    if(persontype==="Tailor")
+                    {
+                        payment="";
+                    }
+                    alert(payment);
 //                    alert(persontype);
 //                    alert(person);
 //                    alert(date);
@@ -87,15 +104,14 @@
                 "op":"ins",
                 "personid":person,
                 "persontype":persontype,
-                "remark":remark,
+                "payment":payment,
                 "date":date,
-                "index":index,
                 "json":jsondata
                 
             },
             type: 'POST',
         success: function(result){
-            alert(result);
+           location.href="<%=application.getContextPath()%>/UserPannelDesign/ItemOutwardReport.jsp";
     
   }}); 
                       });
@@ -208,7 +224,7 @@ if(type==="Tailor")
                                                       
                                                         
                                                 %>
-                                                    <option value="<%=jo.getString("ptype")%>" id="<%=jo.getString("pid")%>"><%=jo.getString("fm")%></option>
+                                                    <option value="<%=jo.getString("ptype")%>" id="<%=jo.getString("pid") %>"><%=jo.getString("fm")%> ( <%=jo.getString("ptype")%> )</option>
                                                     <%
                                                         }
                                                     %>
@@ -221,7 +237,7 @@ if(type==="Tailor")
                                      
                                         </div>
 
-                                     
+<!--                                     
                                         <div class="row form-group">
                                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">Remark</label></div>
                                             <div class="col-12 col-md-9"><input type="text" id="remark" name="text-input" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>   
@@ -229,9 +245,16 @@ if(type==="Tailor")
                                                 <div class="row form-group">
                                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">inward index</label></div>
                                             <div class="col-12 col-md-9"><input type="text" id="index" name="text-input" placeholder="Auto generate" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
-                                        </div>
+                                        </div>-->
                                         <div class="row" id="row">
                                           </div>
+                                                <div  id="pay"  class="row form-group">
+                                                    <div class="col col-md-12">
+                                                        <h5>Mode Of Payment</h5><br>
+                                                     <input id="payment" type="radio" name="payment" value="Cash"> Cash
+                                                     <input type="radio" name="payment" id="payment" value="Credit"> Credit<br>
+                                                    </div>
+                                                    </div>
                                     </form>
                                 </div>
                                 <div class="card-footer">

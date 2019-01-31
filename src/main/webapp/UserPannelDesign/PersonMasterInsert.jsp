@@ -17,6 +17,8 @@
                 var firstname=$('#fname').val();
                 var middlename=$('#mname').val();
                 var lastname=$('#lname').val();
+                var baddress=$('#baddress').val();
+                alert(baddress);
                 var persontype=$("#persontype option:selected").text();
                  var itemlist = [];
                 $.each($("#itemlist option:selected"), function(){            
@@ -50,7 +52,8 @@
                       "addressline2":addressline2,
                       "city":city,
                       "state":state,
-                      "pincode":pincode
+                      "pincode":pincode,
+                      "baddress":baddress
                   }
               });
     });
@@ -121,6 +124,10 @@
                                                             <option value="3">Remote Person</option>
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Business Address(unit name)</label></div>
+                                                    <div class="col-12 col-md-9"><input type="text" id="baddress" name="text-input" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                                 </div>
                                 <div class="row form-group">
                                   <div class="col col-md-3"><label for="select" class=" form-control-label">Items List</label></div>

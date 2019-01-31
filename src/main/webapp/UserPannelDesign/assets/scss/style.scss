@@ -1597,6 +1597,7 @@ header .form-inline {
         top: 93% !important;
     }
 }
+
 .dataTables_paginate {
     .pagination {
         border-radius: 0;
@@ -1812,13 +1813,17 @@ header .form-inline {
             #bootstrap-data-table_wrapper {
                 font-size: 14px;
                 padding: 0;
+                
                 div[class*="col"] {
                     padding: 0;
                 }
+                
                 .table td, .table th {
-                    padding: 5px;
+                    padding: 0;
                 }
+              
+}
             }
         }
-    }
+    
 }

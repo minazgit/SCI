@@ -32,24 +32,20 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong class="card-title">Security Guard Uniform Return Details</strong>
+                                    <strong class="card-title">Reorder Details</strong>
                                 </div>
                                 <div class="card-body">
-                                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>return Index</th>
-                                                 <th>Date</th>
-                                                <th>empcode</th>
-                                                <th>Item id</th>
-                                                <th>Qty</th>                                               
-                                                <!--<th>Remark</th>-->
-                                                
+                                                <th>Item Name</th>
+                                                 <th>Balance</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
                                           <%
-                          JSONArray getinward = (JSONArray)session.getAttribute("getuniform");
+                          JSONArray getinward = (JSONArray)session.getAttribute("getreorder");
                                                                for(int i=0;i<getinward.length();i++){
                                                                JSONArray im=(JSONArray)getinward.get(i);
                                                                
@@ -57,11 +53,6 @@
                             <tr>
                                 <td><%=im.get(0)%></td>
                                 <td><%=im.get(1)%></td>
-                                <td><%=im.get(2)%></td>
-                                <td><%=im.get(3)%></td>
-                                <td><%=im.get(4)%></td>
-                                <!--<td><%=im.get(5)%></td>-->
-                               
                                 
                             </tr>
                             <%  } %>
@@ -110,3 +101,4 @@
 
     </body>
 </html>
+

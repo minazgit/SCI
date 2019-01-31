@@ -118,7 +118,8 @@ System.out.println("hiii");
                    
               
         } 
-           
+           response.sendRedirect(scx.getContextPath()+"/SerSecurityGuard?op=unitname&ui=issue");
+               
         }  catch (JSONException ex) {
             System.out.println("63--"+ex.getMessage());
               // Logger.getLogger(SerUniformIssuePerson.class.getName()).log(Level.SEVERE, null, ex);

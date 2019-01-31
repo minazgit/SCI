@@ -48,7 +48,7 @@
                                                 <th>Item Id</th>                                               
                                                 <th>PurchasePrice</th>
                                                 <th>Qty</th>
-                                                <th>Remark</th>
+                                                <!--<th>Remark</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -66,7 +66,7 @@
                                 <td><%=im.get(4)%></td>
                                 <td><%=im.get(5)%></td>
                                 <td><%=im.get(6)%></td>
-                                <td><%=im.get(7)%></td>
+                               
                             </tr>
                             <%  } %>
                                         </tbody>

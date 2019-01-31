@@ -22,6 +22,7 @@ public class PersonMaster  implements java.io.Serializable {
      private String city;
      private String state;
      private Integer pincode;
+     private String baddress;
      private Set itemInwardses = new HashSet(0);
      private Set itemMasters = new HashSet(0);
      private Set itemOutwardses = new HashSet(0);
@@ -147,6 +148,14 @@ public class PersonMaster  implements java.io.Serializable {
     
     public void setItemOutwardses(Set itemOutwardses) {
         this.itemOutwardses = itemOutwardses;
+    }
+
+    public String getBaddress() {
+        return baddress;
+    }
+
+    public void setBaddress(String baddress) {
+        this.baddress = baddress;
     }
 
 
