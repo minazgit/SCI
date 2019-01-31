@@ -17,6 +17,8 @@ public class ItemOutwardMaster  implements java.io.Serializable {
      private Date date;
      private String remark;
      private String payment;
+     private Double cash_amount;
+     private Double credit_amount;
      private Set itemOutwardDetailses = new HashSet(0);
 
     public ItemOutwardMaster() {
@@ -79,6 +81,23 @@ public class ItemOutwardMaster  implements java.io.Serializable {
         this.payment = payment;
     }
 
+    public Double getCash_amount() {
+        return cash_amount;
+    }
+
+    public void setCash_amount(Double cash_amount) {
+        this.cash_amount = cash_amount;
+    }
+
+    public Double getCredit_amount() {
+        return credit_amount;
+    }
+
+    public void setCredit_amount(Double credit_amount) {
+        this.credit_amount = credit_amount;
+    }
+
+   
 }
 
 

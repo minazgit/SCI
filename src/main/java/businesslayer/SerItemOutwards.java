@@ -94,6 +94,7 @@ public class SerItemOutwards extends HttpServlet {
             //String remark = request.getParameter("remark");
             String json = request.getParameter("json");
             String payment=request.getParameter("payment");
+            Double amount=Double.parseDouble(request.getParameter("rupees"));
            // String index = request.getParameter("index");
             System.out.println(pid);
             System.out.println(json);
@@ -119,6 +120,21 @@ public class SerItemOutwards extends HttpServlet {
                 pm.setPid(Integer.parseInt(pid));
                 iom.setPersonMaster(pm);  //
                  iom.setPayment(payment);
+                 if(payment.equals("Cash"))
+                 {
+                     iom.setCash_amount(amount);
+                     iom.setCredit_amount(0.0);
+                 }
+                 else if(payment.equals("Credit"))
+                 {
+                     iom.setCredit_amount(amount);
+                     iom.setCash_amount(0.0);
+                 }
+                 else
+                 {
+                     iom.setCash_amount(amount);
+                     iom.setCredit_amount(amount);
+                 }
                 Set<ItemOutwardDetails> st = new HashSet<ItemOutwardDetails>();
 
                 for (int i = 0; i < jsonarray.length(); i++) {

@@ -47,6 +47,7 @@
                     remark=$("#remark").val();
                    // index=$("#index").val();
                     payment=$('input[name=payment]:checked').val();
+                    rupees=$("#rupees").val();
                     
                     if(persontype==="Tailor")
                     {
@@ -105,6 +106,7 @@
                 "personid":person,
                 "persontype":persontype,
                 "payment":payment,
+                "rupees":rupees,
                 "date":date,
                 "json":jsondata
                 
@@ -252,8 +254,11 @@ if(type==="Tailor")
                                                     <div class="col col-md-12">
                                                         <h5>Mode Of Payment</h5><br>
                                                      <input id="payment" type="radio" name="payment" value="Cash"> Cash
-                                                     <input type="radio" name="payment" id="payment" value="Credit"> Credit<br>
+                                                     <input type="radio" name="payment" id="payment" value="Credit"> Credit<br> <br>
                                                     </div>
+                                                     <div class="col col-md-3"><label for="hf-password" class=" form-control-label">amount paid</label></div>
+                                                     <div class="col-12 col-md-9"><input type="number"  id="rupees" name="text-input" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                     
                                                     </div>
                                     </form>
                                 </div>
