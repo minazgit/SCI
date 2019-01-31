@@ -10,11 +10,12 @@
     </context-param>
     <context-param>
         <param-name>username</param-name>
-        <param-value>root</param-value>
+        <param-value>root</param-value>  
     </context-param>
     <context-param>
         <param-name>password</param-name>
-        <param-value/>
+        <param-value>java</param-value>
+      
     </context-param>
     <listener>
         <listener-class>Dbconnecti0n.JdbcConnection</listener-class>

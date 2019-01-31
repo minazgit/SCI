@@ -35,14 +35,20 @@
                                     <strong class="card-title">Item-outwards Details</strong>
                                 </div>
                                 <div class="card-body">
+                                    
+                                     
                                   <%
                           JSONArray getinward = (JSONArray)session.getAttribute("getreport");
+                           JSONArray im=null;
                                                                for(int i=0;i<getinward.length();i++){
-                                                               JSONArray im=(JSONArray)getinward.get(i);
+                                                               im=(JSONArray)getinward.get(i);
                                                                
                             %>
+         
                             
-                            <!--<tr>  <td>Outward Index</td> <td><%=im.get(0)%></td> </tr>-->
+                            
+                            
+                            <tr>  <td>Outward Index</td> <td><%=im.get(0)%></td> </tr>
                             <tr>  <td>Date</td>    <td><%=im.get(1)%></td> </tr>,
                              <tr>  <td>Person Name</td>   <td><%=im.get(2)%></td> </tr>,
                              <tr>  <td>Mode Of Payment</td>    <td><%=im.get(3)%></td> </tr>,
@@ -60,6 +66,11 @@
 
                     </div>
                 </div><!-- .animated -->
+                
+             <form action="<%= application.getContextPath()%>/IssueNoteReportServlet" method="get">   
+                <input type="hidden" name="ino"  value="<%=im.get(0)%>"/>
+            <input type="submit" value="issue report" name="btn1" />
+        </form>
             </div><!-- .content -->
 
 
