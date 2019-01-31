@@ -32,27 +32,31 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong class="card-title">Security Guard Uniform Return Details</strong>
+                                    <strong class="card-title">Stock Details</strong>
                                 </div>
                                 <div class="card-body">
-                                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>return Index</th>
-                                                 <th>Date</th>
-                                                <th>empcode</th>
                                                 <th>Item id</th>
-                                                <th>Qty</th>                                               
+                                                 <th>Item Name</th>
+                                                <th>Opening Balance</th>
+                                                <th>Inward</th>
+                                                <th>Outward</th>                                               
                                                 <!--<th>Remark</th>-->
                                                 
+                                                <th>Closing Balance</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                           <%
-                          JSONArray getinward = (JSONArray)session.getAttribute("getuniform");
+                                              System.out.println("hello");
+                          JSONArray getinward = (JSONArray)session.getAttribute("balance");
+                          System.out.println("get"+getinward.length());
                                                                for(int i=0;i<getinward.length();i++){
+                                                                   System.out.println(i);
                                                                JSONArray im=(JSONArray)getinward.get(i);
-                                                               
+                                                       System.out.println("---"+im.get(1)) ;       
                             %>
                             <tr>
                                 <td><%=im.get(0)%></td>
@@ -60,11 +64,10 @@
                                 <td><%=im.get(2)%></td>
                                 <td><%=im.get(3)%></td>
                                 <td><%=im.get(4)%></td>
-                                <!--<td><%=im.get(5)%></td>-->
-                               
+                                <td><%=im.get(5)%></td>
                                 
                             </tr>
-                            <%  } %>
+                            <% System.out.println(i);  } %>
                                         </tbody>
                                     </table>
                                 </div>

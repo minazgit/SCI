@@ -40,8 +40,8 @@
                                             <tr>
                                                 <th>Outward Index</th>
                                                  <th>Date</th>
-                                                <th>pid</th>
-                                                <th>remark</th>
+                                                <th>Pid</th>
+                                                <th>Mode Of Payment</th>
                                                 <th>Item Id</th>                                               
                                                 <th>Qty</th>
                                                 <th>Selling Price</th>

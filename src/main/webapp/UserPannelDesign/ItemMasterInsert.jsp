@@ -22,14 +22,16 @@
             var category=$("#select option:selected").text();
        
             var sub_category=$("input[name='radios']:checked").val();
-          
+           var reorder=$("#reorder").val();
+           
           $.ajax( {
                   url: "<%=application.getContextPath()%>/SerItemmMaster",
                   type: 'POST',
                   data:{"id":id,
                        "item_name":item_name,
                        "category":category,
-                       "sub_category":sub_category
+                       "sub_category":sub_category,
+                       "reorder":reorder
             },
                   success:function(data) {
                     
@@ -89,6 +91,10 @@
                                         <div class="row form-group">
                                             <div class="col col-md-3"><label for="hf-password" class=" form-control-label">Item name</label></div>
                                             <div class="col-12 col-md-9"><input type="text" id="item_name" name="item_name" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                        </div>
+                                      <div class="row form-group">
+                                            <div class="col col-md-3"><label for="hf-password" class=" form-control-label">Reorder Level</label></div>
+                                            <div class="col-12 col-md-9"><input type="number" id="reorder" name="reorder" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                         </div>
                                          <div class="row form-group">
                                                     <div class="col col-md-3"><label for="select" class=" form-control-label">Item Category</label></div>

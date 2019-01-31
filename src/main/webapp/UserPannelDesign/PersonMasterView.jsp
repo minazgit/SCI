@@ -69,6 +69,7 @@
                                                 <th>Add Line 1</th>
                                                 <th>Add Line 2</th>
                                                 <th>City</th>
+                                                <th>Business_address</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
                                                
@@ -82,7 +83,7 @@
                                                                 while(it.hasNext())
                                                                 {
                                                                PersonMaster im=(PersonMaster)it.next();
-                                                               
+                                                            
                             %>
                            
                       <tr>
@@ -92,8 +93,9 @@
                         <td><%= im.getAddline1()%></td>
                         <td><%= im.getAddline2()%></td>
                          <td><%= im.getCity()%></td>
-                         <td><a href="<%=application.getContextPath()%>/SerPersonMaster?id=<%=im.getPid()%>"  id="e1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Edit.png"  height="50px"></a></td>
-                         <td><a href="<%=application.getContextPath()%>/SerPersonMaster?op=delete&id=<%=im.getPid()%>"  id="d1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Cross.png" height="50px"></a></td>
+                         <td><%=im.getBaddress()%></td>
+                         <td><a href="<%=application.getContextPath()%>/SerPersonMaster?id=<%=im.getPid()%>"  id="e1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Edit.png"  height="30px"></a></td>
+                         <td><a href="<%=application.getContextPath()%>/SerPersonMaster?op=delete&id=<%=im.getPid()%>"  id="d1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Cross.png" height="30px"></a></td>
                       </tr>
                          <% }  %>
                             </tbody>

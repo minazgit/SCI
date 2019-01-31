@@ -32,41 +32,27 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong class="card-title">Security Guard Uniform Return Details</strong>
+                                    <strong class="card-title">Item-outwards Details</strong>
                                 </div>
                                 <div class="card-body">
-                                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>return Index</th>
-                                                 <th>Date</th>
-                                                <th>empcode</th>
-                                                <th>Item id</th>
-                                                <th>Qty</th>                                               
-                                                <!--<th>Remark</th>-->
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          <%
-                          JSONArray getinward = (JSONArray)session.getAttribute("getuniform");
+                                  <%
+                          JSONArray getinward = (JSONArray)session.getAttribute("getreport");
                                                                for(int i=0;i<getinward.length();i++){
                                                                JSONArray im=(JSONArray)getinward.get(i);
                                                                
                             %>
-                            <tr>
-                                <td><%=im.get(0)%></td>
-                                <td><%=im.get(1)%></td>
-                                <td><%=im.get(2)%></td>
-                                <td><%=im.get(3)%></td>
-                                <td><%=im.get(4)%></td>
-                                <!--<td><%=im.get(5)%></td>-->
-                               
-                                
-                            </tr>
+                            
+                            <!--<tr>  <td>Outward Index</td> <td><%=im.get(0)%></td> </tr>-->
+                            <tr>  <td>Date</td>    <td><%=im.get(1)%></td> </tr>,
+                             <tr>  <td>Person Name</td>   <td><%=im.get(2)%></td> </tr>,
+                             <tr>  <td>Mode Of Payment</td>    <td><%=im.get(3)%></td> </tr>,
+                             <tr>  <td>Item name</td>         <td><%=im.get(4)%></td></tr>,
+                             <tr>  <td>Qty</td>      <td><%=im.get(5)%></td> </tr>,
+                            <tr>  <td>Selling Price</td>      <td><%=im.get(6)%></td> </tr>,
+                             <!--<tr>  <td>inward_index</td>    <td><%=im.get(7)%></td> </tr>-->
+                           <br>
                             <%  } %>
-                                        </tbody>
-                                    </table>
+                                       
                                 </div>
                             </div>
                         </div>

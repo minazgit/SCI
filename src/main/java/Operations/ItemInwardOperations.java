@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import models.ItemInwardDetails;
 import models.ItemInwardMaster;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ItemInwardOperations {
 
@@ -17,6 +18,7 @@ public class ItemInwardOperations {
     Connection con;
     String sql;
     ResultSet rs;
+    ResultSet rs1;
 
     public ItemInwardOperations(ServletContext ctx) {
         this.ctx = ctx;
@@ -52,7 +54,7 @@ public class ItemInwardOperations {
                   while(it.hasNext())
                   {
                      ItemInwardDetails id=(ItemInwardDetails)it.next();
-                     stmt.executeUpdate("insert into item_inward_details(inward_master_index, itemid, qty, purchase_price, balance, remark) values(" + item_index + "," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getPurchasePrice() + ","+id.getBalance()+",'"+id.getRemark()+"')");
+                     stmt.executeUpdate("insert into item_inward_details(inward_master_index, itemid, qty, purchase_price, balance) values(" + item_index + "," + id.getItemMaster().getItemid() + "," + id.getQty() + "," + id.getPurchasePrice() + ","+id.getBalance()+")");
                    
                   }
                     msg = "success";
@@ -92,7 +94,7 @@ public class ItemInwardOperations {
                 int pid = rs.getInt(5);
                 long billno = rs.getLong(6);
                 double bying_price = rs.getDouble(7);
-                String remark = rs.getString(8);
+                //String remark = rs.getString(8);
                 
                 iobj.setInwardindex(inwardindex);
                 iobj.getItemMaster().setItemid(itemid);
@@ -101,7 +103,7 @@ public class ItemInwardOperations {
                 iobj.getPersonMaster().setPid(pid);
                 iobj.setBillno(billno);
                 iobj.setByingPrice(bying_price);
-                iobj.setRemark(remark);
+               // iobj.setRemark(remark);
                 
                 itemInwardDetails.add(iobj);
             }
@@ -151,7 +153,7 @@ public class ItemInwardOperations {
             con = (Connection) ctx.getAttribute("con");
             stmt = con.createStatement();
 
-            rs = stmt.executeQuery("select itm.inward_index,date,pid,bill_no,itemid,purchase_price,qty,remark FROM `item_inward_master`itm inner join item_inward_details iid on itm.inward_index=iid.inward_master_index");
+            rs = stmt.executeQuery("select itm.inward_index,date,pid,bill_no,itemid,purchase_price,qty FROM `item_inward_master`itm inner join item_inward_details iid on itm.inward_index=iid.inward_master_index");
 
             while (rs.next()) {
                JSONArray je=new JSONArray();
@@ -163,7 +165,7 @@ public class ItemInwardOperations {
                  int itemid = rs.getInt(5);
                  double purchaseprice=rs.getDouble(6);
                 int qty = rs.getInt(7);
-                String remark = rs.getString(8);
+                //String remark = rs.getString(8);
                 je.put(inwardindex+"");
                 je.put(inward_date);
                 je.put(pid+"");
@@ -171,7 +173,7 @@ public class ItemInwardOperations {
                 je.put(itemid+"");
                 je.put(purchaseprice+"");
                 je.put(qty+"");
-                je.put(remark);
+                //je.put(remark);
                ja.put(je);
             }
             
@@ -182,5 +184,94 @@ public class ItemInwardOperations {
         }
         return ja;
     }
+ public JSONArray getItemInwardDetailsReport(String from, String till) {
 
+       JSONArray ja=new JSONArray();
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+             rs = stmt.executeQuery(" SELECT pid,date,bill_no,itemid,qty,purchase_price FROM item_inward_master iim inner join item_inward_details iid on iim.inward_index=iid.inward_master_index and iim.date  between '"+from+"' and '"+till+"'");
+            while (rs.next()) {
+               JSONObject jo=new JSONObject();
+
+                int pid = rs.getInt(1);
+                String date = rs.getString(2);  
+                int billno = rs.getInt(3);
+                 
+                 int itemid = rs.getInt(4);
+                 int qty=rs.getInt(5);
+                 int purchase_price=rs.getInt(6);
+                 
+              PersonMasterOperations pmo=new PersonMasterOperations(ctx);
+              String person_name=pmo.getPersonName(pid);
+               
+              ItemMasterOperations imo=new ItemMasterOperations(ctx);
+             String Itemname= imo.getItemName(itemid);
+                //String remark = rs.getString(8);
+                jo.put("person_name",person_name);
+                jo.put("date", date);
+                jo.put("billno",billno);
+                jo.put("item_name",Itemname);
+                jo.put("qty",qty);
+                jo.put("purchase_price",purchase_price);
+                //je.put(remark);
+               ja.put(jo);
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ja;
+    }
+ public  JSONArray getReorder()
+ {
+       JSONArray ja=new JSONArray();
+        try {
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+ArrayList<Integer> al=new ArrayList<Integer>();
+ArrayList<Integer> al1=new ArrayList<Integer>();
+             rs = stmt.executeQuery("select itemid,reorder_level from item_master");
+            while (rs.next()) {
+              
+
+                int itemid = rs.getInt(1);
+                int reorder=rs.getInt(2);
+                al1.add(reorder);
+              al.add(itemid);
+            }
+            
+            for(int i=0;i<al.size();i++)
+            {
+                    rs1 = stmt.executeQuery("select itemid,sum(balance) from sci_security.item_inward_details where itemid="+al.get(i)+"");
+            while (rs1.next()) {
+                 JSONArray je=new JSONArray();
+             int itemid1 = rs1.getInt(1);
+             int balance =rs1.getInt(2);
+            
+                System.out.println("---id"+itemid1);
+             if(balance<= al1.get(i))
+             {
+                 ItemMasterOperations imo=new ItemMasterOperations(ctx);
+             String Itemname= imo.getItemName(itemid1);
+                je.put(Itemname);
+                je.put(balance);
+                 ja.put(je);
+                 System.out.println("---"+ja);
+             }
+                
+            }
+            }
+          
+            
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ja;
+ }
 }

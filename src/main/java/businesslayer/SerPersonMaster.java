@@ -69,6 +69,8 @@ System.out.println("hiii");
             String city=request.getParameter("city");
             String state=request.getParameter("state");
             String pincode=request.getParameter("pincode");
+            String baddress=request.getParameter("baddress");
+                 System.out.println("---"+baddress);
            // System.out.println(firstname+middlename+lastname+persontype+itemlist+organizationname+contactnumber+addressline1+addressline2+city+state);
         
         PersonMaster pm=new PersonMaster();
@@ -82,6 +84,7 @@ System.out.println("hiii");
         pm.setCity(city);
         pm.setContactno(Long.parseLong(contactnumber));
         pm.setPincode(Integer.SIZE);
+        pm.setBaddress(baddress);
        pm.setState(state);
       String pid=pmo.insertPerson(pm);
         System.out.println(pid);

@@ -16,6 +16,7 @@ public class ItemOutwardMaster  implements java.io.Serializable {
      private PersonMaster personMaster;
      private Date date;
      private String remark;
+     private String payment;
      private Set itemOutwardDetailses = new HashSet(0);
 
     public ItemOutwardMaster() {
@@ -27,10 +28,10 @@ public class ItemOutwardMaster  implements java.io.Serializable {
         this.date = date;
         this.remark = remark;
     }
-    public ItemOutwardMaster(PersonMaster personMaster, Date date, String remark, Set itemOutwardDetailses) {
+    public ItemOutwardMaster(PersonMaster personMaster, Date date, String Payment, Set itemOutwardDetailses) {
        this.personMaster = personMaster;
        this.date = date;
-       this.remark = remark;
+       this.payment = payment;
        this.itemOutwardDetailses = itemOutwardDetailses;
     }
    
@@ -70,8 +71,13 @@ public class ItemOutwardMaster  implements java.io.Serializable {
         this.itemOutwardDetailses = itemOutwardDetailses;
     }
 
+    public String getPayment() {
+        return payment;
+    }
 
-
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
 
 }
 

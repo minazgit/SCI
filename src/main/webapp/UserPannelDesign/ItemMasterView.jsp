@@ -12,12 +12,15 @@
     
     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
      <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    
+     
     <script>
     
            $(document).ready(function(){
               alert("hello");
             $("#d1").click(function(event)
             {    
+                
               event.preventDefault();
   var txt;
   if (confirm("do u want to delete?")) 
@@ -62,13 +65,14 @@
                             <strong class="card-title">Item Master Details</strong>
                         </div>
                         <div class="card-body">
-                  <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                  <table id="bootstrap-data-table"class="table table-striped table-bordered" width="100%" cellspacing="0">
                     <thead>
                       <tr>
                         <th>Id</th>
                         <th>Item name</th>
                         <th>Category</th>
                         <th>Sub-category</th>
+                        <th>Reorder</th>
                         <th>Edit</th>
                         <th>Delete</th>
                       </tr>
@@ -88,8 +92,9 @@
                         <td><%=im.getItemname()%></td>
                         <td><%= im.getItemCategory()%></td>
                         <td><%= im.getSubCategory()%></td>
-                        <td><a href="<%=application.getContextPath()%>/SerItemmMaster?id=<%=im.getItemid()%>"  id="e1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Edit.png"  height="50px"></a></td>
-                       <td><a href="<%=application.getContextPath()%>/SerItemmMaster?id=<%=im.getItemid()%>"  id="d1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Cross.png" height="50px"></a></td>
+                         <td><%= im.getReorder()%></td>
+                        <td><a href="<%=application.getContextPath()%>/SerItemmMaster?id=<%=im.getItemid()%>"  id="e1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Edit.png"  height="30px"></a></td>
+                       <td><a href="<%=application.getContextPath()%>/SerItemmMaster?id=<%=im.getItemid()%>"  id="d1"><img src="<%=application.getContextPath()%>/UserPannelDesign/images/Cross.png" height="30px"></a></td>
                           </tr>
                          <% }  %>
                             </tbody>
@@ -130,7 +135,21 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
+            alert("hello111");
+        $('#bootstrap-data-table-export').DataTable({
+            autoWidth : false,
+            columnDefs:[
+                
+                     { "width": "150px", "targets": [0] },       
+                     { "width": "400px", "targets": [1,2,3] } 
+                
+            ]
+        });
+       
+    
+      alert("1234");
+        
+         
         } );
     </script>
 

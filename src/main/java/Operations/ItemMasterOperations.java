@@ -29,7 +29,7 @@ public class ItemMasterOperations {
 
                 if (imobj != null) {
 
-                    stmt.executeUpdate("insert into item_master(itemname, item_category, sub_category) values('" + imobj.getItemname() + "','" + imobj.getItemCategory() + "','" + imobj.getSubCategory() + "')");
+                    stmt.executeUpdate("insert into item_master(itemname, item_category, sub_category, reorder_level) values('" + imobj.getItemname() + "','" + imobj.getItemCategory() + "','" + imobj.getSubCategory() + "','"+imobj.getReorder()+"')");
 
                     msg = "success";
 
@@ -65,11 +65,12 @@ public class ItemMasterOperations {
                 String itemname = rs.getString(2);
                 String item_category = rs.getString(3);
                 String sub_category = rs.getString(4);
-
+                String reorder=rs.getString(5);
                 itemobj.setItemid(itemid);
                 itemobj.setItemname(itemname);
                 itemobj.setItemCategory(item_category);
                 itemobj.setSubCategory(sub_category);
+                itemobj.setReorder(reorder);
                 itemdetails.add(itemobj);
 
             }

@@ -50,8 +50,8 @@ overflow-y: auto;
         ctrlitemname=$(".itemname");
         ctrlquantity=$(".c1");
         ctrlbuying=$(".c2");
-        ctrlselling=$(".c3");
-        ctrlremark=$(".c4");
+       // ctrlselling=$(".c3");
+       // ctrlremark=$(".c4");
         //alert(ctrlitemname.length);
        jsondata="[";
         for(i=0;i<ctrlitemname.length;i++)
@@ -59,10 +59,10 @@ overflow-y: auto;
             itemname=$(ctrlitemname[i]).html();
             quantity=$(ctrlquantity[i]).val();
             buying=$(ctrlbuying[i]).val();
-            selling=$(ctrlselling[i]).val();
-            remark=$(ctrlremark[i]).val();
+            //selling=$(ctrlselling[i]).val();
+            //remark=$(ctrlremark[i]).val();
            
-            jsondata=jsondata+"{\"in\":\""+itemname+"\",\"q\":\""+quantity+"\",\"bp\":\""+buying+"\",\"sp\":\""+selling+"\",\"rm\":\""+remark+"\"},";
+            jsondata=jsondata+"{\"in\":\""+itemname+"\",\"q\":\""+quantity+"\",\"bp\":\""+buying+"\"},";
          
             
         }
@@ -90,7 +90,7 @@ overflow-y: auto;
        });
        function ItemInward(person){
         $.post("<%=application.getContextPath()%>/SerItemInward?op=maketable",{"person":person},function(responseText,statusText,xhr){
-                      var header=["Item List","Quantity","Buying Price","Selling Price"," Remark"];
+                      var header=["Item List","Quantity","Buying Price"];
                    //   alert(responseText);
                       obj=JSON.parse(responseText);
     // alert(obj[0]+"  "+obj.length);
@@ -185,7 +185,7 @@ overflow-y: auto;
                                                       
                                                         
                                                 %>
-                                                    <option value="<%=jo.getString("pid")%>"><%=jo.getString("fm")%></option>
+                                                    <option value="<%=jo.getString("pid")%>"><%=jo.getString("fm")%> ( <%=jo.getString("ptype")%> )</option>
                                                     <%
                                                         }
                                                     %>

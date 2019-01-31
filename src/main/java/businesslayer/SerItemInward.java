@@ -116,8 +116,8 @@ public class SerItemInward extends HttpServlet {
                     String itn = jsonobj.getString("in");
                     String q = jsonobj.getString("q");
                     String bp = jsonobj.getString("bp");
-                    String sp = jsonobj.getString("sp");
-                    String rm = jsonobj.getString("rm");
+                   // String sp = jsonobj.getString("sp");
+                    //String rm = jsonobj.getString("rm");
 
                     int itemid = itmo.getItemId(itn);
 
@@ -125,7 +125,7 @@ public class SerItemInward extends HttpServlet {
                     iid.setBalance(Long.parseLong(q));
                     iid.setQty(Integer.parseInt(q));
                     iid.setPurchasePrice(Double.parseDouble(bp));
-                    iid.setRemark(rm);
+                 //   iid.setRemark(rm);
 
                     ItemMaster it = new ItemMaster();
                     it.setItemid(itemid);
@@ -152,6 +152,30 @@ public class SerItemInward extends HttpServlet {
               HttpSession hs= request.getSession(true);
               hs.setAttribute("getinward",getitem);
               response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/ItemInwardsView.jsp");
+        }
+         else if(op.equals("geti")){
+            ItemInwardOperations iio=new ItemInwardOperations(scx);
+         String from=   request.getParameter("from");
+         String till=   request.getParameter("till");
+            System.out.println("++"+from);
+            System.out.println("--"+till);
+       JSONArray ja=iio.getItemInwardDetailsReport(from,till);
+            JSONObject jo=new JSONObject();
+            System.out.println(""+ja);
+            try{
+            jo.put("data",ja);
+            out.println(jo);
+            }catch(Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+         }
+         else if(op.equals("reorder")){
+            ItemInwardOperations iio=new ItemInwardOperations(scx);
+            JSONArray getitem =iio.getReorder();
+              HttpSession hs= request.getSession(true);
+              hs.setAttribute("getreorder",getitem);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/ItemReorder.jsp");
         }
     }
 

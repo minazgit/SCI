@@ -77,13 +77,14 @@ System.out.println("hiii");
             System.out.println(category);
            String sub_category= request.getParameter("sub_category");
            System.out.println(sub_category);
-           
-        
+         
+           String reorder=request.getParameter("reorder");
+         
        
            im.setItemname(item_name);
            im.setSubCategory(sub_category);
            im.setItemCategory(category);
-           
+           im.setReorder(reorder);
           String msg= imo.insertItem(im);
           out.println(msg);
           //  response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/ItemMasterInsert.jsp?msg="+msg);

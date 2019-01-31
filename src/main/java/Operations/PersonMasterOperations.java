@@ -29,7 +29,7 @@ public class PersonMasterOperations {
 
                 if (pobj != null) {
 
-                    stmt.executeUpdate("insert into person_master(firstname, midname, lastname, persontype, contactno, addline1, addline2, city, state, pincode) values('" + pobj.getFirstname() + "','" + pobj.getMidname() + "','" + pobj.getLastname() + "', '" + pobj.getPersontype() + "'," + pobj.getContactno() + ",'" + pobj.getAddline1() + "','" + pobj.getAddline2() + "','" + pobj.getCity() + "','" + pobj.getState() + "'," + pobj.getPincode() + ")", Statement.RETURN_GENERATED_KEYS);
+                    stmt.executeUpdate("insert into person_master(firstname, midname, lastname, persontype, contactno, addline1, addline2, city, state, pincode, business_addr) values('" + pobj.getFirstname() + "','" + pobj.getMidname() + "','" + pobj.getLastname() + "', '" + pobj.getPersontype() + "'," + pobj.getContactno() + ",'" + pobj.getAddline1() + "','" + pobj.getAddline2() + "','" + pobj.getCity() + "','" + pobj.getState() + "'," + pobj.getPincode() + ",'"+pobj.getBaddress()+"')", Statement.RETURN_GENERATED_KEYS);
                     ResultSet rs = stmt.getGeneratedKeys();
                     while (rs.next()) {
                         msg = rs.getString(1);
@@ -140,7 +140,7 @@ public class PersonMasterOperations {
                 String city = rs.getString(10);
                 String state = rs.getString(11);
                 int pincode = rs.getInt(12);
-
+ String baddr=rs.getString(13);
                 pobj.setPid(pid);
                 pobj.setFirstname(firstname);
                 pobj.setMidname(midname);
@@ -153,7 +153,7 @@ public class PersonMasterOperations {
                 pobj.setCity(city);
                 pobj.setState(state);
                 pobj.setPincode(pincode);
-
+                pobj.setBaddress(baddr);
                 persondetails.add(pobj);
             }
             stmt.close();
@@ -187,6 +187,7 @@ public class PersonMasterOperations {
                 String city = rs.getString(9);
                 String state = rs.getString(10);
                 int pincode = rs.getInt(11);
+                String baddress=rs.getString(12);
 
                 pobj.setPid(pid);
                 pobj.setFirstname(firstname);
@@ -200,7 +201,7 @@ public class PersonMasterOperations {
                 pobj.setCity(city);
                 pobj.setState(state);
                 pobj.setPincode(pincode);
-
+pobj.setBaddress(baddress);
                 persondetails.add(pobj);
             }
             stmt.close();
@@ -255,7 +256,7 @@ public class PersonMasterOperations {
             con = (Connection) ctx.getAttribute("con");
             stmt = con.createStatement();
 
-            rs = stmt.executeQuery("select pid, firstname, midname, lastname from person_master");
+            rs = stmt.executeQuery("select pid, firstname, midname, lastname, persontype from person_master");
 
             while (rs.next()) {
                 JSONObject jnameobj=new JSONObject();
@@ -263,10 +264,11 @@ public class PersonMasterOperations {
                 fname = rs.getString(2);
                 mname = rs.getString(3);
                 lname = rs.getString(4);
+                String ptype=rs.getString(5);
                 fullname=fname+" "+mname+" "+lname;
                 jnameobj.put("pid", pid);
                 jnameobj.put("fm", fullname);
-                
+                jnameobj.put("ptype", ptype);
                 jnames.put(jnameobj);
                 
             }
@@ -275,6 +277,36 @@ public class PersonMasterOperations {
             System.out.println(e.getMessage());
         }
         return jnames;
+    }
+    public String getPersonName(int id) {
+        JSONArray jnames = new JSONArray();
+        int pid;
+        String fname = "";
+        String mname = "";
+        String lname = "";
+        String fullname="";
+        try {
+
+            con = (Connection) ctx.getAttribute("con");
+            stmt = con.createStatement();
+
+            rs = stmt.executeQuery("select pid, firstname, midname, lastname from person_master where pid="+id+"");
+
+            while (rs.next()) {
+                JSONObject jnameobj=new JSONObject();
+                pid = rs.getInt(1);
+                fname = rs.getString(2);
+                mname = rs.getString(3);
+                lname = rs.getString(4);
+                fullname=fname+" "+mname+" "+lname;
+                
+                
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return fullname;
     }
 
 }

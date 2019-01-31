@@ -30,19 +30,19 @@
                     
                     
                     
-                    <li class="menu-item-has-children dropdown">
+<!--                    <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i> Security Guard Master</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="SecurityGuardInsert.jsp">Add</a></li>
                             <li><i class="fa fa-table"></i><a href="<%= application.getContextPath()%>/SerSecurityGuard?op=2">View</a></li>
                         </ul>
-                    </li>
+                    </li>-->
 
 
-                    <h3 class="menu-title">Item Management</h3><!-- /.menu-title -->
+                    <h3 class="menu-title">Stock Management</h3><!-- /.menu-title -->
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Item inwards </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Stock inwards </a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=pn">Add</a></li>
                             <li><i class="menu-icon ti-themify-logo"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=view">View</a></li>
@@ -50,7 +50,7 @@
                     </li>
 
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Item outwards</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Stock outwards</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%=application.getContextPath()%>/SerItemOutwards?op=pn1">Add</a></li>
                             <li><i class="menu-icon ti-themify-logo"></i><a href="<%=application.getContextPath()%>/SerItemOutwards?op=pn2">View</a></li>
@@ -58,9 +58,40 @@
                     </li>
                     
                     
+ <h3 class="menu-title">Stock Summary</h3><!-- /.menu-title -->
 
+                    <li >
+                        <a href="<%=application.getContextPath()%>/SerItemOutwards?op=balance"   aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Stock</a>
+<!--                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=pn">Add</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=view">View</a></li>
+                        </ul>
+-->                    </li>
+                      <li >
+                        <a href="PurchaseReport.jsp"   aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Purchase Summary </a>
+<!--                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=pn">Add</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=view">View</a></li>
+                        </ul>
+-->                    </li>
+                      <li >
+                        <a href="IssueReport.jsp"   aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Issue Summary </a>
+<!--                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=pn">Add</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=view">View</a></li>
+                        </ul>
+-->                    </li>
+                      <li >
+                        <a href="<%=application.getContextPath()%>/SerItemInward?op=reorder"   aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Reorder Level </a>
+<!--                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=pn">Add</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=view">View</a></li>
+                        </ul>
+-->                    </li>
+
+                 
                     
-                    <h3 class="menu-title">Security Guard Management</h3><!-- /.menu-title -->
+<!--                    <h3 class="menu-title">Security Guard Management</h3>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Uniform issue details</a>
                         <ul class="sub-menu children dropdown-menu">
@@ -73,9 +104,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Uniform return</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="<%=application.getContextPath()%>/SerSecurityGuard?op=unitname&ui=return">Add</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="SgUniformReturnView.jsp">View</a></li>                         
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="<%=application.getContextPath()%>/SerUniformReturn?op=get">View</a></li>                         
                         </ul>
-                    </li>
+                    </li>-->
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

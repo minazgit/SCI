@@ -5,6 +5,8 @@
  */
 package businesslayer;
 
+import Operations.GuardUniformIssueOperations;
+import Operations.GuardUniformReturnOperations;
 import Operations.SecurityGuardMasterOperations;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,11 +51,12 @@ System.out.println("hiii");
       String op=request.getParameter("op");
        System.out.println(unit);
                System.out.println("----"+a);
-       StringTokenizer st=new StringTokenizer(a);
-       JSONArray ja=new JSONArray();
        
        if(op.equals("unit"))
        {
+           StringTokenizer st=new StringTokenizer(a);
+       JSONArray ja=new JSONArray();
+       
        while(st.hasMoreTokens())
        {
             JSONObject jno=new JSONObject();
@@ -75,6 +78,16 @@ System.out.println("hiii");
        response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/UniformReturnPerson.jsp");
            
            }
+        else if(op.equals("get"))
+       {
+           System.out.println("-----");
+           GuardUniformReturnOperations iio=new GuardUniformReturnOperations(scx);
+            JSONArray getitem =iio.getGuardReturnView();
+              HttpSession hs= request.getSession(true);
+              hs.setAttribute("getuniform",getitem);
+              response.sendRedirect(scx.getContextPath()+"/UserPannelDesign/SgUniformReturnView.jsp");
+    
+       }
            }catch(Exception e)
            {
                System.out.println(e.getMessage());
