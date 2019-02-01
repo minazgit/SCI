@@ -89,7 +89,7 @@
                         </ul>
 -->                    </li>
  <li >
-                        <a href="<%=application.getContextPath()%>/purchaseOrderServlet"   aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Purchase Order </a>
+                        <a href="<%=application.getContextPath()%>/SerPurchaseOrder?op=pn1"   aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Purchase Order </a>
 <!--                        <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-fort-awesome"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=pn">Add</a></li>
                             <li><i class="menu-icon ti-themify-logo"></i><a href="<%= application.getContextPath()%>/SerItemInward?op=view">View</a></li>

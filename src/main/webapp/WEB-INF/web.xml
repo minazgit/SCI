@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <context-param>
@@ -10,12 +11,11 @@
     </context-param>
     <context-param>
         <param-name>username</param-name>
-        <param-value>root</param-value>  
+        <param-value>root</param-value>
     </context-param>
     <context-param>
         <param-name>password</param-name>
         <param-value></param-value>
-      
     </context-param>
     <listener>
         <listener-class>Dbconnecti0n.JdbcConnection</listener-class>
@@ -72,6 +72,10 @@
         <servlet-name>ExcelSheet</servlet-name>
         <servlet-class>businesslayer.ExcelSheet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SerPurchaseOrder</servlet-name>
+        <servlet-class>businesslayer.SerPurchaseOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -124,9 +128,7 @@
         <servlet-name>ExcelSheet</servlet-name>
         <url-pattern>/ExcelSheet</url-pattern>
     </servlet-mapping>
-
-
-<servlet>
+    <servlet>
         <servlet-name>IssueNoteReportServlet</servlet-name>
         <servlet-class>Myservlets.IssueNoteReportServlet</servlet-class>
     </servlet>
@@ -142,12 +144,10 @@
         <servlet-name>purchaseOrderServlet</servlet-name>
         <url-pattern>/purchaseOrderServlet</url-pattern>
     </servlet-mapping>
-
-
-
-
-
-
+    <servlet-mapping>
+        <servlet-name>SerPurchaseOrder</servlet-name>
+        <url-pattern>/SerPurchaseOrder</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
