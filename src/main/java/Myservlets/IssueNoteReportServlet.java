@@ -57,7 +57,7 @@ public class IssueNoteReportServlet extends HttpServlet {
 
 
 System.out.println("-----------------------59-----myservlet");
-        String abc=getServletContext().getRealPath("")+"/images/logo.png";         
+        String abc=getServletContext().getRealPath("")+"/images/logo1.png";         
 //        
         Map parameters = new HashMap();
 
