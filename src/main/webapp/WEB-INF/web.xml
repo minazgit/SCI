@@ -10,12 +10,11 @@
     </context-param>
     <context-param>
         <param-name>username</param-name>
-        <param-value>root</param-value>  
+        <param-value>root</param-value>
     </context-param>
     <context-param>
         <param-name>password</param-name>
-        <param-value>java</param-value>
-      
+        <param-value></param-value>
     </context-param>
     <listener>
         <listener-class>Dbconnecti0n.JdbcConnection</listener-class>
@@ -72,6 +71,10 @@
         <servlet-name>ExcelSheet</servlet-name>
         <servlet-class>businesslayer.ExcelSheet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SerPurchaseOrder</servlet-name>
+        <servlet-class>businesslayer.SerPurchaseOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -124,9 +127,7 @@
         <servlet-name>ExcelSheet</servlet-name>
         <url-pattern>/ExcelSheet</url-pattern>
     </servlet-mapping>
-
-
-<servlet>
+    <servlet>
         <servlet-name>IssueNoteReportServlet</servlet-name>
         <servlet-class>Myservlets.IssueNoteReportServlet</servlet-class>
     </servlet>
@@ -142,12 +143,10 @@
         <servlet-name>purchaseOrderServlet</servlet-name>
         <url-pattern>/purchaseOrderServlet</url-pattern>
     </servlet-mapping>
-
-
-
-
-
-
+    <servlet-mapping>
+        <servlet-name>SerPurchaseOrder</servlet-name>
+        <url-pattern>/SerPurchaseOrder</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
