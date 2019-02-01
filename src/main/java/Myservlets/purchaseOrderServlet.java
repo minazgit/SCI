@@ -57,7 +57,7 @@ public class purchaseOrderServlet extends HttpServlet {
 
 //        int sn=Integer.parseInt(request.getParameter("selid"));
 System.out.println("-----------------------59");
-        String abc=getServletContext().getRealPath("")+"/images/logo.png";         
+        String abc=getServletContext().getRealPath("")+"/images/logo1.png";         
        
         Map parameters = new HashMap();
 

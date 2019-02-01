@@ -3,6 +3,8 @@
 	<property name="ireport.zoom" value="1.6500000000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
+	<property name="net.sf.jasperreports.default.font.name" value="Sans Serif"/>
 	<parameter name="parameter1" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="parameter2" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
@@ -12,10 +14,13 @@
      person_master.`midname` AS person_master_midname,
      person_master.`lastname` AS person_master_lastname,
      person_master.`persontype` AS person_master_persontype,
+person_master.`business_addr` AS person_master_business_addr,
      item_outward_master.`outward_master_index` AS item_outward_master_outward_master_index,
      item_outward_master.`date` AS item_outward_master_date,
      item_outward_master.`pid` AS item_outward_master_pid,
      item_outward_master.`payment` AS item_outward_master_payment,
+item_outward_master.`cash_amount` AS item_outward_master_cash_amount,
+item_outward_master.`credit_amount` AS item_outward_master_credit_amount,
      item_outward_details.`outward_detail_index` AS item_outward_details_outward_detail_index,
      item_outward_details.`outward_master_index` AS item_outward_details_outward_master_index,
      item_outward_details.`itemid` AS item_outward_details_itemid,
@@ -36,10 +41,13 @@ FROM
 	<field name="person_master_midname" class="java.lang.String"/>
 	<field name="person_master_lastname" class="java.lang.String"/>
 	<field name="person_master_persontype" class="java.lang.String"/>
+	<field name="person_master_business_addr" class="java.lang.String"/>
 	<field name="item_outward_master_outward_master_index" class="java.math.BigInteger"/>
 	<field name="item_outward_master_date" class="java.sql.Date"/>
 	<field name="item_outward_master_pid" class="java.lang.Long"/>
 	<field name="item_outward_master_payment" class="java.lang.String"/>
+	<field name="item_outward_master_cash_amount" class="java.lang.Double"/>
+	<field name="item_outward_master_credit_amount" class="java.lang.Double"/>
 	<field name="item_outward_details_outward_detail_index" class="java.math.BigInteger"/>
 	<field name="item_outward_details_outward_master_index" class="java.math.BigInteger"/>
 	<field name="item_outward_details_itemid" class="java.lang.Long"/>
@@ -90,7 +98,7 @@ FROM
 				<imageExpression><![CDATA[$P{parameter1}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="202" y="3" width="134" height="30" forecolor="#000000" uuid="e6e6f954-101e-4f71-82aa-a4fe49c5fcb0"/>
+				<reportElement x="202" y="3" width="134" height="30" forecolor="#CCCCCC" uuid="e6e6f954-101e-4f71-82aa-a4fe49c5fcb0"/>
 				<textElement textAlignment="Center">
 					<font fontName="Century" size="24" isBold="true" isItalic="false"/>
 				</textElement>
@@ -175,6 +183,10 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$F{item_outward_master_outward_master_index}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="117" y="128" width="100" height="18" uuid="7358c2e1-10cf-4bba-86ec-4e6fb18b917f"/>
+				<textFieldExpression><![CDATA[$F{person_master_business_addr}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -242,11 +254,11 @@ FROM
 				<textFieldExpression><![CDATA[$F{item_master_itemname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="447" y="0" width="100" height="20" uuid="b96a29d8-2ea2-4c48-8941-5709b7497d0c"/>
+				<reportElement x="443" y="5" width="100" height="20" uuid="b96a29d8-2ea2-4c48-8941-5709b7497d0c"/>
 				<textFieldExpression><![CDATA[$V{amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="383" y="1" width="53" height="20" uuid="c61fc724-9add-42cd-91f5-4f5eb0a486ab"/>
+				<reportElement x="376" y="4" width="53" height="20" uuid="c61fc724-9add-42cd-91f5-4f5eb0a486ab"/>
 				<textFieldExpression><![CDATA[$F{item_outward_details_selling_price}]]></textFieldExpression>
 			</textField>
 			<frame>
@@ -343,13 +355,13 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="429" y="4" width="119" height="20" uuid="c627be5f-84ba-400d-bd37-5b44aab193b0"/>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement x="300" y="4" width="70" height="20" uuid="f31fea5c-5fb4-48a5-b032-0afca50545db"/>
+				<reportElement x="300" y="3" width="70" height="20" uuid="f31fea5c-5fb4-48a5-b032-0afca50545db"/>
 				<textElement textAlignment="Right">
 					<font isBold="true" isUnderline="false"/>
 				</textElement>
@@ -364,6 +376,14 @@ FROM
 					<bottomPen lineWidth="1.0" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineColor="#000000"/>
 				</box>
+				<textField>
+					<reportElement x="131" y="19" width="100" height="20" uuid="1395dea9-d896-432b-80db-cd5309c43fa3"/>
+					<textFieldExpression><![CDATA[$F{item_outward_master_cash_amount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="131" y="45" width="100" height="20" uuid="d8bd0548-ba7f-4e52-ad89-8c0f668f738d"/>
+					<textFieldExpression><![CDATA[$F{item_outward_master_credit_amount}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="300" y="110" width="99" height="23" uuid="78557086-289c-4d5c-8ee8-a30b239c155a"/>
@@ -380,7 +400,7 @@ FROM
 				<text><![CDATA[This is a computer generated receipt]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement positionType="FixRelativeToBottom" x="440" y="90" width="115" height="31" uuid="4cb7ad2a-d88f-454e-9108-8f1d0ab170c3"/>
+				<reportElement positionType="FixRelativeToBottom" x="440" y="90" width="115" height="41" uuid="4cb7ad2a-d88f-454e-9108-8f1d0ab170c3"/>
 			</rectangle>
 		</band>
 	</summary>
